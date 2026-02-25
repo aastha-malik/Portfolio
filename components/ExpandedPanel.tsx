@@ -58,7 +58,9 @@ export function ExpandedPanel({ activeTileId, onClose }: ExpandedPanelProps) {
                     ))}
                   </div>
                   <div className="mt-4 flex gap-3">
-                    <PanelButton href={project.demoUrl}>Live Demo</PanelButton>
+                    <PanelButton href={project.demoUrl}>
+                      {project.name === "Chikitsa Cloud" ? "Download APK" : "Live Demo"}
+                    </PanelButton>
                     <PanelButton href={project.githubUrl} variant="outline">
                       GitHub
                     </PanelButton>
@@ -136,25 +138,30 @@ export function ExpandedPanel({ activeTileId, onClose }: ExpandedPanelProps) {
         return (
           <div className="space-y-6">
             <h2 className="text-lg font-semibold tracking-tight">Contact</h2>
-            <ul className="space-y-3 text-sm">
+            <div className="grid gap-4 md:grid-cols-2">
               {content.contact.map((item) => (
-                <li key={item.id} className="flex flex-col gap-1">
-                  <span className="text-xs font-medium uppercase tracking-[0.16em] text-[color:var(--text-secondary)]">
+                <div
+                  key={item.id}
+                  className="rounded-xl border border-white/5 bg-black/10 p-4"
+                >
+                  <h3 className="text-xs font-medium uppercase tracking-[0.16em] text-[color:var(--text-secondary)]">
                     {item.label}
-                  </span>
-                  {item.href ? (
-                    <Link
-                      href={item.href}
-                      className="text-[color:var(--foreground)] underline-offset-4 hover:text-[color:var(--accent)] hover:underline"
-                    >
-                      {item.value}
-                    </Link>
-                  ) : (
-                    <span>{item.value}</span>
-                  )}
-                </li>
+                  </h3>
+                  <div className="mt-2 text-sm">
+                    {item.href ? (
+                      <Link
+                        href={item.href}
+                        className="text-[color:var(--foreground)] underline-offset-4 hover:text-[color:var(--accent)] hover:underline break-all"
+                      >
+                        {item.value}
+                      </Link>
+                    ) : (
+                      <span className="break-all">{item.value}</span>
+                    )}
+                  </div>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
         );
       case "basic":

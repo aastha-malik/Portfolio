@@ -18,9 +18,12 @@ export type Project = {
 
 export type TechCategoryId =
   | "languages"
-  | "frameworks"
+  | "backend"
   | "databases"
-  | "tools";
+  | "tools"
+  | "core"
+  | "studying"
+  | "client";
 
 export type TechCategory = {
   id: TechCategoryId;
@@ -38,7 +41,7 @@ export type ContactItem = {
 export type PortfolioContent = {
   projects: Project[];
   dsaProfiles: {
-    platform: "LeetCode" | "NeetCode";
+    platform: "LeetCode" | "GitHub" | "LinkedIn" | "NeetCode";
     href: string;
   }[];
   resume: {
@@ -63,91 +66,116 @@ export type PortfolioContent = {
 export const content: PortfolioContent = {
   projects: [
     {
-      id: "project-1",
-      name: "Distributed Job Orchestrator",
+      id: "project-blossom",
+      name: "Blossom",
       description:
-        "Backend service for scheduling and monitoring long-running data jobs with retry semantics and observability hooks.",
-      tech: ["TypeScript", "Node.js", "PostgreSQL", "Redis", "Docker"],
-      demoUrl: "#",
-      githubUrl: "#",
+        "A gamified task manager using FastAPI with JWT/OAuth2. Built backend-enforced gamification (points, streaks, virtual pet system) and managed task analytics.",
+      tech: ["Python", "FastAPI", "PostgreSQL", "SQLAlchemy", "JWT", "OAuth2"],
+      demoUrl: "https://blossom-arru.onrender.com/",
+      githubUrl: "https://github.com/aastha-malik/Blossom",
     },
     {
-      id: "project-2",
-      name: "API Platform for Internal Tools",
+      id: "project-chikitsa",
+      name: "Chikitsa Cloud",
       description:
-        "Unified API gateway exposing internal services with authentication, rate limiting, and metrics-first design.",
-      tech: ["Go", "gRPC", "Kubernetes", "Prometheus"],
-      demoUrl: "#",
-      githubUrl: "#",
+        "Cloud-based medical record management app. Featuring secure PDF/image uploads, a QR-based emergency family access system. (Download APK via Demo)",
+      tech: ["Python", "FastAPI", "Supabase", "Flutter", "ML Integration"],
+      demoUrl: "https://drive.google.com/file/d/10A-i4ca3aM3ZiWz79QTj451qiwctJ6P_/view?usp=sharing",
+      githubUrl: "https://github.com/aastha-malik/ChikitsaCloud",
     },
   ],
   dsaProfiles: [
     {
       platform: "LeetCode",
-      href: "#",
+      href: "https://leetcode.com/u/aastha_malik/",
     },
     {
       platform: "NeetCode",
-      href: "#",
+      href: "https://neetcode.io/profile",
     },
   ],
   resume: {
     previewImage: "/resume-preview.png",
-    downloadUrl: "#",
+    downloadUrl: "https://drive.google.com/file/d/1SWgH-HdU_yI6a4KM2lqHO_D972ewfebI/view?usp=sharing",
   },
   techStack: [
     {
       id: "languages",
-      label: "Languages",
-      items: ["TypeScript", "Go", "Python", "SQL"],
+      label: "Programming Languages",
+      items: ["Python"],
     },
     {
-      id: "frameworks",
-      label: "Frameworks",
-      items: ["Next.js", "Node.js", "Express", "FastAPI"],
+      id: "backend",
+      label: "Backend & APIs",
+      items: [
+        "FastAPI",
+        "REST API design",
+        "Authentication & Authorization (JWT, OAuth2.0)",
+        "bcrypt",
+      ],
     },
     {
       id: "databases",
       label: "Databases",
-      items: ["PostgreSQL", "MongoDB", "Redis"],
+      items: ["SQLite", "PostgreSQL", "Supabase"],
     },
     {
       id: "tools",
-      label: "Tools",
-      items: ["Docker", "Kubernetes", "GitHub Actions", "Grafana"],
+      label: "Tools & Platforms",
+      items: ["Git", "GitHub", "Linux (basic)", "Swagger UI"],
+    },
+    {
+      id: "core",
+      label: "Computer Science Core",
+      items: ["DBMS", "OOPs", "OS"],
+    },
+    {
+      id: "studying",
+      label: "Currently Studying",
+      items: ["Deployment", "Data Structure & Algorithm"],
+    },
+    {
+      id: "client",
+      label: "Client Integrations",
+      items: ["React", "Typescript", "Flutter", "Dart", "Tkinter"],
     },
   ],
   contact: [
     {
       id: "email",
       label: "Email",
-      value: "you@example.com",
-      href: "mailto:you@example.com",
+      value: "aasthamalik.work@gmail.com",
+      href: "mailto:aasthamalik.work@gmail.com",
+    },
+    {
+      id: "phone",
+      label: "Phone",
+      value: "7303102064",
+      href: "tel:7303102064",
     },
     {
       id: "github",
       label: "GitHub",
-      value: "@your-github",
-      href: "https://github.com/your-github",
+      value: "aastha-malik",
+      href: "https://github.com/aastha-malik",
     },
     {
       id: "linkedin",
       label: "LinkedIn",
-      value: "your-linkedin",
-      href: "https://linkedin.com/in/your-linkedin",
+      value: "aastha-malik-",
+      href: "https://linkedin.com/in/aastha-malik-",
     },
   ],
   basicInfo: {
     headline: "Backend Engineer",
-    subheadline: "Designing reliable systems with clear boundaries.",
+    subheadline: "Developing robust backends for modern applications.",
     intro:
-      "I build backend systems that prioritize correctness, observability, and pragmatic performance. I enjoy designing APIs, data models, and infrastructure that teams can rely on.",
+      "I am a Computer Science student (B.Tech, 2024-2028) and a Backend Engineer specializing in Python and FastAPI. I build secure, scalable systems with a focus on authentication (JWT/OAuth2) and database architecture. My experience ranges from gamified task managers to cloud-based health record platforms.",
   },
   profile: {
-    name: "Your Name",
+    name: "Aastha Malik",
     role: "Backend Engineer",
     imageSrc: "/profile.jpg",
-    imageAlt: "Portrait of a backend engineer",
+    imageAlt: "Aastha Malik",
   },
 };
-

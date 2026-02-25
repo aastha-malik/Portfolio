@@ -35,7 +35,7 @@ export function GridLayout() {
         height: "100vh",
         display: "flex",
         flexDirection: "column",
-        padding: "1.25rem 1.5rem",
+        padding: "5rem 8rem",
         boxSizing: "border-box",
         overflow: "hidden",
       }}
@@ -43,9 +43,8 @@ export function GridLayout() {
     >
       {/* Header — fixed height, shrink-proof */}
       <div
-        style={{ flexShrink: 0, marginBottom: "1rem", textAlign: "center" }}
+        style={{ flexShrink: 0, marginBottom: "1rem", textAlign: "center", width: "100%" }}
       >
-
       </div>
 
       {/* Bento Grid — fills remaining viewport height */}
@@ -57,9 +56,10 @@ export function GridLayout() {
           gridTemplateColumns: "1fr 2fr 1fr",
           gridTemplateRows: "1fr 2fr 1fr",
           gap: "0.8rem",
-          maxWidth: "1000px",
-          width: "100%",
           margin: "0 auto",
+          aspectRatio: "1 / 1",
+          maxHeight: "100%",
+          maxWidth: "100%",
         }}
         className="bento-grid"
       >
