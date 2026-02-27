@@ -114,22 +114,34 @@ export function GridLayout() {
             isActive={activeTileId === "profile"}
             isProfile
             fullHeight
+            noPadding
           >
-            <div className="flex flex-col items-center gap-4">
-              <div className="relative h-[84px] w-[84px] rounded-full border border-[color:var(--accent)]/60 bg-black/30">
-                <Image
-                  src={content.profile.imageSrc}
-                  alt={content.profile.imageAlt}
-                  fill
-                  sizes="84px"
-                  className="rounded-full object-cover"
-                />
-              </div>
-              <div className="space-y-1.5 text-center">
-                <p className="text-sm font-medium">{content.profile.name}</p>
-                <p className="text-xs text-[color:var(--text-secondary)]">
-                  {content.profile.role}
-                </p>
+            <div className="relative h-full w-full">
+              <Image
+                src={content.profile.imageSrc}
+                alt={content.profile.imageAlt}
+                fill
+                sizes="(max-width: 640px) 100vw, 50vw"
+                className="object-cover"
+                priority
+              />
+              {/* Overlay with name and role for better visibility */}
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-6 pb-8">
+                <div className="relative inline-block">
+                  {/* Highlight Background for Name */}
+                  <div className="absolute inset-0 -mx-2 -my-1 bg-[color:var(--accent)] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left opacity-90 rounded-sm -z-10" />
+                  <p className="relative z-10 text-2xl font-bold text-white tracking-tight leading-tight transition-all duration-300 group-hover:scale-105 origin-left">
+                    {content.profile.name}
+                  </p>
+                </div>
+
+                <div className="relative mt-2 block">
+                  {/* Highlight Background for Role (slightly more subtle) */}
+                  <div className="absolute inset-0 -mx-1 bg-[color:var(--accent)]/40 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 delay-75 origin-left rounded-sm -z-10" />
+                  <p className="relative z-10 text-xs font-semibold uppercase tracking-[0.2em] text-white/90 transition-all duration-300 group-hover:translate-x-1">
+                    {content.profile.role}
+                  </p>
+                </div>
               </div>
             </div>
           </Tile>

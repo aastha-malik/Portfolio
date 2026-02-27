@@ -11,6 +11,7 @@ type TileProps = {
   onOpen?: () => void;
   isProfile?: boolean;
   fullHeight?: boolean;
+  noPadding?: boolean;
 };
 
 export function Tile({
@@ -22,6 +23,7 @@ export function Tile({
   onOpen,
   isProfile = false,
   fullHeight = false,
+  noPadding = false,
 }: TileProps) {
   const isDimmed = activeTileId !== null && !isActive;
 
@@ -48,7 +50,7 @@ export function Tile({
   return (
     <motion.div
       layoutId={`tile-${id}`}
-      className="tile-shadow rounded-2xl bg-[color:var(--surface)] text-[color:var(--foreground)] outline-none w-full"
+      className="tile-shadow rounded-2xl bg-[color:var(--surface)] text-[color:var(--foreground)] outline-none w-full overflow-hidden group"
       style={containerStyle}
       whileHover={
         isProfile
@@ -62,9 +64,9 @@ export function Tile({
       transition={{ duration: 0.18 }}
       {...interactiveProps}
     >
-      <div className="flex h-full w-full items-center justify-center rounded-2xl px-4 py-4">
-        <div className="flex flex-col items-center justify-center gap-2 text-center">
-          {label && (
+      <div className={`flex h-full w-full items-center justify-center rounded-2xl ${noPadding ? "" : "px-4 py-4"}`}>
+        <div className={`flex flex-col items-center justify-center gap-2 text-center h-full w-full ${noPadding ? "" : ""}`}>
+          {label && !noPadding && (
             <span className="text-sm font-medium uppercase tracking-[0.18em] text-[color:var(--text-secondary)]">
               {label}
             </span>
