@@ -20,9 +20,11 @@ export type TechCategoryId =
   | "languages"
   | "backend"
   | "databases"
+  | "auth"
+  | "cloud"
+  | "apis"
   | "tools"
   | "core"
-  | "studying"
   | "client";
 
 export type TechCategory = {
@@ -66,22 +68,22 @@ export type PortfolioContent = {
 export const content: PortfolioContent = {
   projects: [
     {
-      id: "project-blossom",
-      name: "Blossom",
-      description:
-        "A gamified task manager using FastAPI with JWT/OAuth2. Built backend-enforced gamification (points, streaks, virtual pet system) and managed task analytics.",
-      tech: ["Python", "FastAPI", "PostgreSQL", "SQLAlchemy", "JWT", "OAuth2"],
-      demoUrl: "https://blossom-arru.onrender.com/",
-      githubUrl: "https://github.com/aastha-malik/Blossom",
-    },
-    {
       id: "project-chikitsa",
       name: "Chikitsa Cloud",
       description:
-        "Cloud-based medical record management app. Featuring secure PDF/image uploads, a QR-based emergency family access system. (Download APK via Demo)",
-      tech: ["Python", "FastAPI", "Supabase", "Flutter", "ML Integration"],
+        "A full-stack healthcare records management platform with 35 REST API endpoints across 7 routes: Auth, Users, Medical Records, Medical Analysis, Family Access, Hospital Search, and Feedback. Features OAuth2 with Google Sign-In, JWT token management, UUID-based multi-user data modeling, family access control via QR code scanning and email invitations, OpenStreetMap API integration for hospital discovery, and health metrics validation engine. Deployed on Render with PostgreSQL and Supabase cloud storage.",
+      tech: ["Python", "FastAPI", "PostgreSQL", "Supabase", "JWT", "OAuth2", "Render"],
       demoUrl: "https://drive.google.com/file/d/10A-i4ca3aM3ZiWz79QTj451qiwctJ6P_/view?usp=sharing",
       githubUrl: "https://github.com/aastha-malik/ChikitsaCloud",
+    },
+    {
+      id: "project-blossom",
+      name: "Blossom",
+      description:
+        "A gamified task management platform with 20+ REST API endpoints supporting task CRUD, streaks, XP/points, rewards, user analytics, and team management. Engineered gamification logic including streak tracking, inactivity penalties, and reward tier progression with backend-enforced rules. Implemented multi-method authentication: Google OAuth2, standard JWT auth, and OTP-based password reset. First full-stack project demonstrating end-to-end system design and cloud deployment.",
+      tech: ["Python", "FastAPI", "PostgreSQL", "JWT", "OAuth2", "Render"],
+      demoUrl: "https://blossom-arru.onrender.com/",
+      githubUrl: "https://github.com/aastha-malik/Blossom",
     },
   ],
   dsaProfiles: [
@@ -101,43 +103,48 @@ export const content: PortfolioContent = {
   techStack: [
     {
       id: "languages",
-      label: "Programming Languages",
+      label: "Languages",
       items: ["Python"],
     },
     {
       id: "backend",
-      label: "Backend & APIs",
-      items: [
-        "FastAPI",
-        "REST API design",
-        "Authentication & Authorization (JWT, OAuth2.0)",
-        "bcrypt",
-      ],
+      label: "Frameworks & Libraries",
+      items: ["FastAPI", "Pydantic", "SQLAlchemy"],
     },
     {
       id: "databases",
       label: "Databases",
-      items: ["SQLite", "PostgreSQL", "Supabase"],
+      items: ["PostgreSQL", "Supabase", "SQLite", "MySQL"],
+    },
+    {
+      id: "auth",
+      label: "Authentication & Security",
+      items: ["JWT", "OAuth2.0", "Google Sign-In", "bcrypt"],
+    },
+    {
+      id: "cloud",
+      label: "Cloud & Deployment",
+      items: ["Render", "Vercel", "Supabase Storage", "AWS S3"],
+    },
+    {
+      id: "apis",
+      label: "APIs",
+      items: ["REST API", "OpenStreetMap API"],
     },
     {
       id: "tools",
-      label: "Tools & Platforms",
-      items: ["Git", "GitHub", "Linux (basic)", "Swagger UI"],
+      label: "Developer Tools",
+      items: ["Git", "GitHub", "Postman", "VS Code", "Swagger UI", "Linux"],
     },
     {
       id: "core",
-      label: "Computer Science Core",
-      items: ["DBMS", "OOPs", "OS"],
-    },
-    {
-      id: "studying",
-      label: "Currently Studying",
-      items: ["Deployment", "Data Structure & Algorithm"],
+      label: "CS Core",
+      items: ["DBMS", "OOPs", "Operating Systems", "Computer Networks", "HTTP/HTTPS"],
     },
     {
       id: "client",
       label: "Client Integrations",
-      items: ["React", "Typescript", "Flutter", "Dart", "Tkinter"],
+      items: ["React", "TypeScript", "Flutter", "Dart", "Tkinter"],
     },
   ],
   contact: [
@@ -150,8 +157,8 @@ export const content: PortfolioContent = {
     {
       id: "phone",
       label: "Phone",
-      value: "7303102064",
-      href: "tel:7303102064",
+      value: "+91 7303102064",
+      href: "tel:+917303102064",
     },
     {
       id: "github",
@@ -167,14 +174,15 @@ export const content: PortfolioContent = {
     },
   ],
   basicInfo: {
-    headline: "Backend Engineer",
-    subheadline: "Developing robust backends for modern applications.",
+    headline: "Backend Developer",
+    subheadline:
+      "Passionate about solving real-world problems through clean, efficient code and continuously expanding expertise to work on production-grade, scalable products.",
     intro:
-      "I am a Computer Science student (B.Tech, 2024-2028) and a Backend Engineer specializing in Python and FastAPI. I build secure, scalable systems with a focus on authentication (JWT/OAuth2) and database architecture. My experience ranges from gamified task managers to cloud-based health record platforms.",
+      "Backend developer with hands-on experience building and deploying healthcare and productivity applications. Proficient in Python, FastAPI, PostgreSQL, JWT/OAuth2, and cloud deployment on Render. Fast learner with a growth mindset, actively deep diving into backend development to design secure, scalable REST APIs.",
   },
   profile: {
     name: "Aastha Malik",
-    role: "Backend Engineer",
+    role: "Backend Developer",
     imageSrc: "/profile.jpg",
     imageAlt: "Aastha Malik",
   },

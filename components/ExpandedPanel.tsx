@@ -96,9 +96,10 @@ export function ExpandedPanel({ activeTileId, onClose }: ExpandedPanelProps) {
               <Image
                 src={content.resume.previewImage}
                 alt="Resume preview"
-                width={1200}
-                height={800}
-                className="h-auto w-full object-cover"
+                width={791}
+                height={1024}
+                quality={100}
+                className="h-auto w-full object-contain"
               />
             </div>
             <PanelButton href={content.resume.downloadUrl}>
@@ -247,7 +248,7 @@ function PanelButton({
       : "border border-[color:var(--accent)] text-[color:var(--accent)] hover:bg-[color:var(--accent)]/10";
 
   return (
-    <Link href={href} className={`${baseClasses} ${variantClasses}`}>
+    <Link href={href} className={`${baseClasses} ${variantClasses}`} target="_blank" rel="noopener noreferrer">
       {children}
     </Link>
   );
