@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Aastha Malik — Portfolio
+
+A minimal, dark-themed developer portfolio built with Next.js 16, TypeScript, Tailwind CSS 4, and Framer Motion.
+
+**[Live Site →](https://aastha-malik-portfolio.onrender.com/)**
+
+---
+
+## About
+
+This portfolio showcases my work as a backend developer — featuring selected projects, my DSA journey, tech stack, resume, and contact info. The UI follows an interactive card-based layout where each section opens as a detailed modal, keeping the landing page clean and focused.
+
+## Tech Stack
+
+- **Framework:** Next.js 16 (App Router, Static Export)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS 4
+- **Animations:** Framer Motion
+- **Deployment:** Render (Static Site)
+
+## Features
+
+- Dark-themed, responsive design
+- Interactive modal-based navigation — sections expand on click
+- Smooth page transitions and animations with Framer Motion
+- Static export for fast load times and easy hosting
+- Mobile-friendly layout
+
+## Projects Featured
+
+- **Chikitsa Cloud** — A full-stack healthcare records management platform with 35 REST API endpoints, OAuth2, JWT auth, QR code scanning, and OpenStreetMap integration. Built with Python, FastAPI, PostgreSQL, and Supabase.
+
+- **Blossom** — A gamified task management platform with streaks, XP/points, rewards, and multi-method authentication. Built with Python, FastAPI, PostgreSQL, and deployed on Render.
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# Clone the repo
+git clone https://github.com/aastha-malik/Portfolio.git
+cd Portfolio
+
+# Install dependencies
+npm install
+
+# Run locally
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view it.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build & Deploy
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Build for static export
+npm run build
 
-## Learn More
+# Output directory: out/
+```
 
-To learn more about Next.js, take a look at the following resources:
+Deployed on Render as a static site. The `next.config.ts` includes:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```ts
+output: 'export',
+images: { unoptimized: true }
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
+```
+├── app/            # Next.js App Router pages & layouts
+├── components/     # Reusable UI components
+├── data/           # Project data, content, and config
+├── public/         # Static assets (images, resume, etc.)
+├── next.config.ts  # Next.js configuration
+├── tsconfig.json   # TypeScript config
+└── package.json
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contact
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **GitHub:** [aastha-malik](https://github.com/aastha-malik)
+- **LinkedIn:** [Aastha Malik](https://www.linkedin.com/in/aastha-malik-/)
+
+---
+
+Built with ☕ and Next.js
