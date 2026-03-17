@@ -37,33 +37,42 @@ export function ExpandedPanel({ activeTileId, onClose }: ExpandedPanelProps) {
         return (
           <div className="space-y-6">
             <h2 className="text-lg font-semibold tracking-tight">Projects</h2>
-            <div className="grid gap-4 grid-cols-3">
+            <div className="flex flex-col gap-5">
               {content.projects.map((project) => (
                 <div
                   key={project.id}
-                  className="rounded-xl border border-white/5 bg-black/10 p-4"
+                  className="rounded-xl border border-white/5 bg-black/10 p-6 flex gap-8"
                 >
-                  <h3 className="text-base font-semibold">{project.name}</h3>
-                  <p className="mt-2 text-sm text-[color:var(--text-secondary)]">
-                    {project.description}
-                  </p>
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {project.tech.map((tech) => (
-                      <span
-                        key={tech}
-                        className="rounded-full bg-white/5 px-2.5 py-1 text-xs text-[color:var(--text-secondary)]"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+                  <div className="shrink-0 w-44">
+                    <h3 className="text-base font-semibold">{project.name}</h3>
+                    <div className="mt-4 flex flex-wrap gap-1.5">
+                      {project.tech.map((tech) => (
+                        <span
+                          key={tech}
+                          className="rounded-full bg-white/5 px-2.5 py-1 text-xs text-[color:var(--text-secondary)]"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                  <div className="mt-4 flex gap-3">
-                    <PanelButton href={project.demoUrl}>
-                      {project.name === "Chikitsa Cloud" ? "Download APK" : "Live Demo"}
-                    </PanelButton>
-                    <PanelButton href={project.githubUrl} variant="outline">
-                      GitHub
-                    </PanelButton>
+                  <div className="border-l border-white/5 pl-8 flex-1 flex flex-col justify-between">
+                    <ul className="space-y-2">
+                      {project.bullets.map((bullet, i) => (
+                        <li key={i} className="flex gap-2 text-sm leading-relaxed text-[color:var(--text-secondary)]">
+                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--accent)]" />
+                          {bullet}
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="mt-5 flex gap-3 justify-end">
+                      <PanelButton href={project.demoUrl}>
+                        {project.name === "Chikitsa Cloud" ? "Download APK" : "Live Demo"}
+                      </PanelButton>
+                      <PanelButton href={project.githubUrl} variant="outline">
+                        GitHub
+                      </PanelButton>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -111,11 +120,11 @@ export function ExpandedPanel({ activeTileId, onClose }: ExpandedPanelProps) {
         return (
           <div className="space-y-6">
             <h2 className="text-lg font-semibold tracking-tight">Tech Stack</h2>
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-5 md:grid-cols-2">
               {content.techStack.map((category) => (
                 <div
                   key={category.id}
-                  className="rounded-xl border border-white/5 bg-black/10 p-4"
+                  className="rounded-xl border border-white/5 bg-black/10 p-5"
                 >
                   <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-[color:var(--text-secondary)]">
                     {category.label}
@@ -139,11 +148,11 @@ export function ExpandedPanel({ activeTileId, onClose }: ExpandedPanelProps) {
         return (
           <div className="space-y-6">
             <h2 className="text-lg font-semibold tracking-tight">Contact</h2>
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-5 md:grid-cols-2">
               {content.contact.map((item) => (
                 <div
                   key={item.id}
-                  className="rounded-xl border border-white/5 bg-black/10 p-4"
+                  className="rounded-xl border border-white/5 bg-black/10 p-5"
                 >
                   <h3 className="text-xs font-medium uppercase tracking-[0.16em] text-[color:var(--text-secondary)]">
                     {item.label}
@@ -167,15 +176,15 @@ export function ExpandedPanel({ activeTileId, onClose }: ExpandedPanelProps) {
         );
       case "basic":
         return (
-          <div className="space-y-4">
+          <div className="space-y-6">
             <h2 className="text-lg font-semibold tracking-tight">About</h2>
-            <p className="text-sm text-[color:var(--text-secondary)]">
+            <p className="text-sm tracking-wide text-[color:var(--text-secondary)]">
               {content.basicInfo.headline}
             </p>
-            <p className="text-sm text-[color:var(--foreground)]">
+            <p className="text-base leading-relaxed text-[color:var(--foreground)]">
               {content.basicInfo.intro}
             </p>
-            <p className="text-sm text-[color:var(--text-secondary)]">
+            <p className="text-sm leading-relaxed text-[color:var(--text-secondary)]">
               {content.basicInfo.subheadline}
             </p>
           </div>
@@ -202,7 +211,7 @@ export function ExpandedPanel({ activeTileId, onClose }: ExpandedPanelProps) {
           />
           <motion.div
             layoutId={`tile-${activeTileId}`}
-            className="relative z-10 max-h-[72vh] w-full max-w-5xl rounded-2xl bg-[color:var(--surface)] p-5 text-[color:var(--foreground)] tile-shadow"
+            className="relative z-10 max-h-[88vh] w-full max-w-5xl rounded-2xl bg-[color:var(--surface)] p-8 text-[color:var(--foreground)] tile-shadow"
             initial={{ scale: 0.96, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.96, opacity: 0 }}
@@ -218,7 +227,7 @@ export function ExpandedPanel({ activeTileId, onClose }: ExpandedPanelProps) {
             >
               Close
             </button>
-            <div className="mt-4 max-h-[60vh] overflow-y-auto pr-1">
+            <div className="mt-6 max-h-[76vh] overflow-y-auto pr-2">
               {renderContent()}
             </div>
           </motion.div>

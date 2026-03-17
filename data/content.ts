@@ -10,7 +10,7 @@ export type TileId =
 export type Project = {
   id: string;
   name: string;
-  description: string;
+  bullets: string[];
   tech: string[];
   demoUrl: string;
   githubUrl: string;
@@ -71,8 +71,13 @@ export const content: PortfolioContent = {
     {
       id: "project-chikitsa",
       name: "Chikitsa Cloud",
-      description:
-        "A full-stack healthcare records management platform with 35 REST API endpoints across 7 routes: Auth, Users, Medical Records, Medical Analysis, Family Access, Hospital Search, and Feedback. Features OAuth2 with Google Sign-In, JWT token management, UUID-based multi-user data modeling, family access control via QR code scanning and email invitations, OpenStreetMap API integration for hospital discovery, and health metrics validation engine. Deployed on Render with PostgreSQL and Supabase cloud storage.",
+      bullets: [
+        "35 REST API endpoints across 7 routes: Auth, Users, Medical Records, Medical Analysis, Family Access, Hospital Search, and Feedback",
+        "OAuth2 with Google Sign-In, JWT token management, UUID-based multi-user data modeling",
+        "Family access control via QR code scanning and email invitations",
+        "OpenStreetMap API integration for hospital discovery; health metrics validation engine (BMI, vitals)",
+        "Deployed on Render with PostgreSQL and Supabase cloud storage; migrating file storage to AWS S3",
+      ],
       tech: ["Python", "FastAPI", "PostgreSQL", "Supabase", "JWT", "OAuth2", "Render"],
       demoUrl: "https://drive.google.com/file/d/10A-i4ca3aM3ZiWz79QTj451qiwctJ6P_/view?usp=sharing",
       githubUrl: "https://github.com/aastha-malik/ChikitsaCloud",
@@ -80,8 +85,12 @@ export const content: PortfolioContent = {
     {
       id: "project-blossom",
       name: "Blossom",
-      description:
-        "A gamified task management platform with 20+ REST API endpoints supporting task CRUD, streaks, XP/points, rewards, user analytics, and team management. Engineered gamification logic including streak tracking, inactivity penalties, and reward tier progression with backend-enforced rules. Implemented multi-method authentication: Google OAuth2, standard JWT auth, and OTP-based password reset. First full-stack project demonstrating end-to-end system design and cloud deployment.",
+      bullets: [
+        "20+ REST API endpoints supporting task CRUD, streaks, XP/points, rewards, user analytics, and team management",
+        "Gamification logic: streak tracking, inactivity penalties, and reward tier progression with backend-enforced rules",
+        "Multi-method auth: Google OAuth2, standard JWT, and OTP-based password reset",
+        "End-to-end solo project from API design to cloud deployment on Render with PostgreSQL",
+      ],
       tech: ["Python", "FastAPI", "PostgreSQL", "JWT", "OAuth2", "Render"],
       demoUrl: "https://blossom-arru.onrender.com/",
       githubUrl: "https://github.com/aastha-malik/Blossom",
@@ -89,8 +98,12 @@ export const content: PortfolioContent = {
     {
       id: "project-video-object-remover",
       name: "Video Object Remover",
-      description:
-        "An AI-powered video editing tool with an end-to-end computer vision pipeline: user clicks on objects in a video frame → SAM2 segments and tracks the object across all frames → ProPainter inpaints the removed regions → ffmpeg encodes the final output video. Engineered a 3-tier architecture: Next.js frontend → FastAPI backend using native WebSocket for real-time progress streaming → Hugging Face ML pipeline polled via SSE. Containerized and deployed ML pipeline on Hugging Face Spaces using Docker; supports CPU and GPU inference.",
+      bullets: [
+        "End-to-end CV pipeline: click on object → SAM2 segments & tracks across all frames → ProPainter inpaints removed regions → ffmpeg encodes final video",
+        "3-tier architecture: Next.js frontend → FastAPI backend with native WebSocket for real-time progress → Hugging Face ML pipeline polled via SSE",
+        "Meta's SAM2 for click-based multi-object segmentation and frame-by-frame tracking",
+        "Containerized and deployed ML pipeline on Hugging Face Spaces using Docker; supports CPU and GPU inference",
+      ],
       tech: ["Python", "FastAPI", "WebSocket", "SSE", "SAM2", "ProPainter", "OpenCV", "Gradio", "Docker", "Hugging Face Spaces"],
       demoUrl: "https://huggingface.co/spaces/aastha-malik/video-object-remover",
       githubUrl: "https://github.com/aastha-malik/video-object-remover",
@@ -191,9 +204,9 @@ export const content: PortfolioContent = {
   basicInfo: {
     headline: "Backend Developer",
     subheadline:
-      "Passionate about solving real-world problems through clean, efficient code and continuously expanding expertise to work on production-grade, scalable products.",
+      "Co-author of a research paper on differentially private blockchain-based climate forecasting. Always shipping something new.",
     intro:
-      "Backend developer with hands-on experience building and deploying healthcare and productivity applications, including an AI-powered video editing pipeline deployed on Hugging Face Spaces. Proficient in Python, FastAPI, PostgreSQL, JWT/OAuth2, and cloud deployment on Render. Fast learner with a growth mindset, actively deep diving into backend development to design secure, scalable REST APIs.",
+      "I build and deploy production-grade backend systems. My projects span healthcare (Chikitsa Cloud — 35 REST API endpoints, OAuth2, QR-based family access control), productivity (Blossom — gamified task management with streaks, XP, and reward tiers), and AI (a computer vision pipeline using Meta's SAM2 + ProPainter for video object removal, containerized with Docker and deployed on Hugging Face Spaces). I work primarily in Python with FastAPI, PostgreSQL, and JWT/OAuth2 — and I'm comfortable taking a project from API design all the way to cloud deployment.",
   },
   profile: {
     name: "Aastha Malik",
