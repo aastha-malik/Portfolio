@@ -37,7 +37,7 @@ export function ExpandedPanel({ activeTileId, onClose }: ExpandedPanelProps) {
         return (
           <div className="space-y-6">
             <h2 className="text-lg font-semibold tracking-tight">Projects</h2>
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-4 grid-cols-3">
               {content.projects.map((project) => (
                 <div
                   key={project.id}
@@ -202,7 +202,7 @@ export function ExpandedPanel({ activeTileId, onClose }: ExpandedPanelProps) {
           />
           <motion.div
             layoutId={`tile-${activeTileId}`}
-            className="relative z-10 max-h-[72vh] w-full max-w-3xl rounded-2xl bg-[color:var(--surface)] p-5 text-[color:var(--foreground)] tile-shadow"
+            className="relative z-10 max-h-[72vh] w-full max-w-5xl rounded-2xl bg-[color:var(--surface)] p-5 text-[color:var(--foreground)] tile-shadow"
             initial={{ scale: 0.96, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.96, opacity: 0 }}

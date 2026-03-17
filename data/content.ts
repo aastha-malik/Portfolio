@@ -25,6 +25,7 @@ export type TechCategoryId =
   | "apis"
   | "tools"
   | "core"
+  | "ml"
   | "client";
 
 export type TechCategory = {
@@ -85,6 +86,15 @@ export const content: PortfolioContent = {
       demoUrl: "https://blossom-arru.onrender.com/",
       githubUrl: "https://github.com/aastha-malik/Blossom",
     },
+    {
+      id: "project-video-object-remover",
+      name: "Video Object Remover",
+      description:
+        "An AI-powered video editing tool with an end-to-end computer vision pipeline: user clicks on objects in a video frame → SAM2 segments and tracks the object across all frames → ProPainter inpaints the removed regions → ffmpeg encodes the final output video. Engineered a 3-tier architecture: Next.js frontend → FastAPI backend using native WebSocket for real-time progress streaming → Hugging Face ML pipeline polled via SSE. Containerized and deployed ML pipeline on Hugging Face Spaces using Docker; supports CPU and GPU inference.",
+      tech: ["Python", "FastAPI", "WebSocket", "SSE", "SAM2", "ProPainter", "OpenCV", "Gradio", "Docker", "Hugging Face Spaces"],
+      demoUrl: "https://huggingface.co/spaces/aastha-malik/video-object-remover",
+      githubUrl: "https://github.com/aastha-malik/video-object-remover",
+    },
   ],
   dsaProfiles: [
     {
@@ -97,7 +107,7 @@ export const content: PortfolioContent = {
     },
   ],
   resume: {
-    previewImage: "/resume-preview.png",
+    previewImage: "/resume-preview-v2.png",
     downloadUrl: "https://drive.google.com/file/d/1SWgH-HdU_yI6a4KM2lqHO_D972ewfebI/view?usp=sharing",
   },
   techStack: [
@@ -124,17 +134,17 @@ export const content: PortfolioContent = {
     {
       id: "cloud",
       label: "Cloud & Deployment",
-      items: ["Render", "Vercel", "Supabase Storage", "AWS S3"],
+      items: ["Render", "Vercel", "Supabase Storage", "AWS S3", "Hugging Face Spaces"],
     },
     {
       id: "apis",
-      label: "APIs",
-      items: ["REST API", "OpenStreetMap API"],
+      label: "APIs & Protocols",
+      items: ["REST API", "WebSocket", "SSE", "OpenStreetMap API"],
     },
     {
       id: "tools",
       label: "Developer Tools",
-      items: ["Git", "GitHub", "Postman", "VS Code", "Swagger UI", "Linux"],
+      items: ["Git", "GitHub", "Postman", "VS Code", "Swagger UI", "Linux", "Docker"],
     },
     {
       id: "core",
@@ -142,9 +152,14 @@ export const content: PortfolioContent = {
       items: ["DBMS", "OOPs", "Operating Systems", "Computer Networks", "HTTP/HTTPS"],
     },
     {
+      id: "ml",
+      label: "ML & Computer Vision",
+      items: ["SAM2", "ProPainter", "OpenCV", "Gradio", "Machine Learning Pipelines"],
+    },
+    {
       id: "client",
-      label: "Client Integrations",
-      items: ["React", "TypeScript", "Flutter", "Dart", "Tkinter"],
+      label: "Frontend & Client Technologies",
+      items: ["Next.js", "React", "TypeScript", "Flutter", "Dart", "Tkinter"],
     },
   ],
   contact: [
@@ -178,7 +193,7 @@ export const content: PortfolioContent = {
     subheadline:
       "Passionate about solving real-world problems through clean, efficient code and continuously expanding expertise to work on production-grade, scalable products.",
     intro:
-      "Backend developer with hands-on experience building and deploying healthcare and productivity applications. Proficient in Python, FastAPI, PostgreSQL, JWT/OAuth2, and cloud deployment on Render. Fast learner with a growth mindset, actively deep diving into backend development to design secure, scalable REST APIs.",
+      "Backend developer with hands-on experience building and deploying healthcare and productivity applications, including an AI-powered video editing pipeline deployed on Hugging Face Spaces. Proficient in Python, FastAPI, PostgreSQL, JWT/OAuth2, and cloud deployment on Render. Fast learner with a growth mindset, actively deep diving into backend development to design secure, scalable REST APIs.",
   },
   profile: {
     name: "Aastha Malik",
