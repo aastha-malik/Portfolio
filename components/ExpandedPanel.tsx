@@ -41,11 +41,11 @@ export function ExpandedPanel({ activeTileId, onClose }: ExpandedPanelProps) {
               {content.projects.map((project) => (
                 <div
                   key={project.id}
-                  className="rounded-xl border border-white/5 bg-black/10 p-6 flex gap-8"
+                  className="rounded-xl border border-white/5 bg-black/10 p-4 sm:p-6 flex flex-col sm:flex-row gap-4 sm:gap-8"
                 >
-                  <div className="shrink-0 w-44">
+                  <div className="sm:shrink-0 sm:w-44">
                     <h3 className="text-base font-semibold">{project.name}</h3>
-                    <div className="mt-4 flex flex-wrap gap-1.5">
+                    <div className="mt-3 flex flex-wrap gap-1.5">
                       {project.tech.map((tech) => (
                         <span
                           key={tech}
@@ -56,7 +56,7 @@ export function ExpandedPanel({ activeTileId, onClose }: ExpandedPanelProps) {
                       ))}
                     </div>
                   </div>
-                  <div className="border-l border-white/5 pl-8 flex-1 flex flex-col justify-between">
+                  <div className="border-t sm:border-t-0 sm:border-l border-white/5 pt-4 sm:pt-0 sm:pl-8 flex-1 flex flex-col justify-between">
                     <ul className="space-y-2">
                       {project.bullets.map((bullet, i) => (
                         <li key={i} className="flex gap-2 text-sm leading-relaxed text-[color:var(--text-secondary)]">
@@ -211,7 +211,7 @@ export function ExpandedPanel({ activeTileId, onClose }: ExpandedPanelProps) {
           />
           <motion.div
             layoutId={`tile-${activeTileId}`}
-            className="relative z-10 max-h-[88vh] w-full max-w-5xl rounded-2xl bg-[color:var(--surface)] p-8 text-[color:var(--foreground)] tile-shadow"
+            className="relative z-10 max-h-[88vh] w-full max-w-5xl rounded-2xl bg-[color:var(--surface)] p-4 sm:p-8 text-[color:var(--foreground)] tile-shadow"
             initial={{ scale: 0.96, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.96, opacity: 0 }}
@@ -227,7 +227,7 @@ export function ExpandedPanel({ activeTileId, onClose }: ExpandedPanelProps) {
             >
               Close
             </button>
-            <div className="mt-6 max-h-[76vh] overflow-y-auto pr-2">
+            <div className="mt-4 sm:mt-6 max-h-[74vh] sm:max-h-[76vh] overflow-y-auto pr-1 sm:pr-2">
               {renderContent()}
             </div>
           </motion.div>

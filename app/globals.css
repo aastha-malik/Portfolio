@@ -30,21 +30,67 @@ body {
   box-shadow: 0 20px 45px rgba(214, 51, 132, 0.28);
 }
 
-/* Mobile: collapse to single column */
+/* Tablet: reduce side padding */
+@media (max-width: 1024px) {
+  .bento-container {
+    padding: 3rem 3rem !important;
+  }
+}
+
+/* Mobile: keep square grid, center it vertically (more space top/bottom) */
 @media (max-width: 640px) {
+  /* Center the grid vertically within the full-height container */
+  .bento-container {
+    padding: 0 0.5rem !important;
+    justify-content: center !important;
+  }
+
+  /* Remove the empty header's bottom margin so it doesn't shift the grid */
+  .bento-container > div:first-child {
+    margin-bottom: 0 !important;
+  }
+
+  /* Let the grid be sized by its width (square via aspect-ratio), not by flex */
   .bento-grid {
-    grid-template-columns: 1fr !important;
-    grid-template-rows: auto !important;
+    flex: none !important;
+    width: 100% !important;
+    min-height: unset !important;
+    gap: 0.4rem !important;
   }
 
-  .bento-grid > div {
-    grid-column: auto !important;
-    grid-row: auto !important;
+  /* Scale down tile label text (uppercase tracking) */
+  .bento-grid span {
+    font-size: 0.65rem !important;
+    letter-spacing: 0.08em !important;
+    line-height: 1.3 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
   }
 
-  .bento-grid > div > * {
-    min-height: 120px !important;
-    height: auto !important;
-    aspect-ratio: unset !important;
+  /* Tighter tile inner padding */
+  .bento-grid .rounded-2xl > div {
+    padding: 0.35rem !important;
+  }
+
+  /* Profile overlay: name */
+  .profile-cell p:first-of-type {
+    font-size: 1.1rem !important;
+    line-height: 1.2 !important;
+    letter-spacing: 0.01em !important;
+  }
+
+  /* Profile overlay: role */
+  .profile-cell p:last-of-type {
+    font-size: 0.6rem !important;
+    line-height: 1.2 !important;
+    letter-spacing: 0.15em !important;
+  }
+
+  .profile-cell .p-6 {
+    padding: 0.4rem !important;
+    padding-bottom: 0.5rem !important;
   }
 }

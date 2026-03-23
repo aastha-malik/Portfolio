@@ -39,7 +39,7 @@ export function GridLayout() {
         boxSizing: "border-box",
         overflow: "hidden",
       }}
-      className="bg-[color:var(--background)] text-[color:var(--foreground)]"
+      className="bg-[color:var(--background)] text-[color:var(--foreground)] bento-container"
     >
       {/* Header — fixed height, shrink-proof */}
       <div
@@ -106,7 +106,7 @@ export function GridLayout() {
           </Tile>
         </div>
 
-        <div style={{ gridColumn: "2 / 3", gridRow: "2" }}>
+        <div style={{ gridColumn: "2 / 3", gridRow: "2" }} className="profile-cell">
           <Tile
             id="profile"
             label="Profile"
