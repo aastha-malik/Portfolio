@@ -76,7 +76,7 @@ export const content: PortfolioContent = {
         "OAuth2 with Google Sign-In, JWT token management, UUID-based multi-user data modeling",
         "Family access control via QR code scanning and email invitations",
         "OpenStreetMap API integration for hospital discovery; health metrics validation engine (BMI, vitals)",
-        "Deployed on Render with PostgreSQL and Supabase cloud storage; migrating file storage to AWS S3",
+        "Deployed MVP on Render with PostgreSQL and Supabase cloud storage for enhanced data encryption and security",
       ],
       tech: ["Python", "FastAPI", "PostgreSQL", "Supabase", "JWT", "OAuth2", "Render"],
       demoUrl: "https://drive.google.com/file/d/10A-i4ca3aM3ZiWz79QTj451qiwctJ6P_/view?usp=sharing",
@@ -108,6 +108,18 @@ export const content: PortfolioContent = {
       demoUrl: "https://huggingface.co/spaces/aastha-malik/video-object-remover",
       githubUrl: "https://github.com/aastha-malik/video-object-remover",
     },
+    {
+      id: "project-face-fusion",
+      name: "Face Fusion",
+      bullets: [
+        "End-to-end face-swap ML pipeline: source photo + YouTube URL (or upload) → InsightFace detects & embeds faces per frame → inswapper_128 performs neural face swap → GFPGAN restores & sharpens output → ffmpeg merges audio and encodes final MP4",
+        "Integrated yt-dlp for YouTube video download (non-shorts) locally; Hugging Face Spaces deployment supports video upload only due to platform constraints",
+        "~12 frames/second on T4 GPU using ONNX Runtime GPU-accelerated inference; deployed interactive Gradio UI on Hugging Face Spaces",
+      ],
+      tech: ["Python", "InsightFace", "GFPGAN", "OpenCV", "yt-dlp", "ffmpeg", "Gradio", "ONNX Runtime", "Hugging Face Spaces"],
+      demoUrl: "https://huggingface.co/spaces/aastha-malik/video-face-replace",
+      githubUrl: "https://github.com/aastha-malik/video-face-replace",
+    },
   ],
   dsaProfiles: [
     {
@@ -120,7 +132,7 @@ export const content: PortfolioContent = {
     },
   ],
   resume: {
-    previewImage: "/resume-preview-v2.png",
+    previewImage: "/resume-preview-v3.png",
     downloadUrl: "https://drive.google.com/file/d/1SWgH-HdU_yI6a4KM2lqHO_D972ewfebI/view?usp=sharing",
   },
   techStack: [
@@ -147,7 +159,7 @@ export const content: PortfolioContent = {
     {
       id: "cloud",
       label: "Cloud & Deployment",
-      items: ["Render", "Vercel", "Supabase Storage", "AWS S3", "Hugging Face Spaces"],
+      items: ["Render", "Vercel", "Supabase Storage", "Hugging Face Spaces"],
     },
     {
       id: "apis",
@@ -167,7 +179,7 @@ export const content: PortfolioContent = {
     {
       id: "ml",
       label: "ML & Computer Vision",
-      items: ["SAM2", "ProPainter", "OpenCV", "Gradio", "Machine Learning Pipelines"],
+      items: ["SAM2", "ProPainter", "InsightFace", "GFPGAN", "ONNX Runtime", "OpenCV", "Gradio", "Machine Learning Pipelines"],
     },
     {
       id: "client",
@@ -203,10 +215,9 @@ export const content: PortfolioContent = {
   ],
   basicInfo: {
     headline: "Backend Developer",
-    subheadline:
-      "Co-author of a research paper on differentially private blockchain-based climate forecasting. Always shipping something new.",
+    subheadline: "Always shipping something new.",
     intro:
-      "I build and deploy production-grade backend systems. My projects span healthcare (Chikitsa Cloud — 35 REST API endpoints, OAuth2, QR-based family access control), productivity (Blossom — gamified task management with streaks, XP, and reward tiers), and AI (a computer vision pipeline using Meta's SAM2 + ProPainter for video object removal, containerized with Docker and deployed on Hugging Face Spaces). I work primarily in Python with FastAPI, PostgreSQL, and JWT/OAuth2 — and I'm comfortable taking a project from API design all the way to cloud deployment.",
+      "I build and deploy production-grade backend systems. My projects span healthcare (Chikitsa Cloud — 35 REST API endpoints, OAuth2, QR-based family access control), productivity (Blossom — gamified task management with streaks, XP, and reward tiers), and AI/ML (Video Object Remover using Meta's SAM2 + ProPainter; Face Fusion achieving ~12fps face-swap on T4 GPU via ONNX Runtime — both deployed on Hugging Face Spaces with Docker). I work primarily in Python with FastAPI, PostgreSQL, and JWT/OAuth2 — and I'm comfortable taking a project from API design all the way to cloud deployment.",
   },
   profile: {
     name: "Aastha Malik",
