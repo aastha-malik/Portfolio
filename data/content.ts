@@ -132,8 +132,8 @@ export const content: PortfolioContent = {
     },
   ],
   resume: {
-    previewImage: "/resume-preview-v3.png",
-    downloadUrl: "https://drive.google.com/file/d/1SWgH-HdU_yI6a4KM2lqHO_D972ewfebI/view?usp=sharing",
+    previewImage: "/resume-preview-v4.png",
+    downloadUrl: "https://drive.google.com/file/d/1do2N7AP97TTnx6aWRvHQu4qkFG39r2Qq/view?usp=sharing",
   },
   techStack: [
     {
