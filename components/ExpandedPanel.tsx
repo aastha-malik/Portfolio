@@ -1,234 +1,166 @@
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useRef } from "react";
-import { content, type TileId } from "@/data/content";
-import Link from "next/link";
-import Image from "next/image";
+"use client";
 
-type ExpandedPanelProps = {
-  activeTileId: TileId | null;
+import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
+import { content, type Project } from "@/data/content";
+
+type ModalState =
+  | null
+  | { type: "project"; data: Project }
+  | { type: "dsa" }
+  | { type: "resume" }
+  | { type: "tech" }
+  | { type: "contact" };
+
+type Props = {
+  modal: ModalState;
   onClose: () => void;
 };
 
-export function ExpandedPanel({ activeTileId, onClose }: ExpandedPanelProps) {
-  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
-
-  useEffect(() => {
-    if (!activeTileId) return;
-    closeButtonRef.current?.focus();
-  }, [activeTileId]);
-
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        onClose();
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [onClose]);
-
-  if (!activeTileId || activeTileId === "profile") {
-    return null;
+function getTitle(modal: ModalState): string {
+  if (!modal) return "";
+  switch (modal.type) {
+    case "project": return modal.data.name;
+    case "dsa":     return "DSA · Problem solving";
+    case "resume":  return "Résumé";
+    case "tech":    return "Tech stack";
+    case "contact": return "Let's talk";
   }
+}
 
-  const renderContent = () => {
-    switch (activeTileId) {
-      case "projects":
-        return (
-          <div className="space-y-6">
-            <h2 className="text-lg font-semibold tracking-tight">Projects</h2>
-            <div className="flex flex-col gap-5">
-              {content.projects.map((project) => (
-                <div
-                  key={project.id}
-                  className="rounded-xl border border-white/5 bg-black/10 p-4 sm:p-6 flex flex-col sm:flex-row gap-4 sm:gap-8"
-                >
-                  <div className="sm:shrink-0 sm:w-44">
-                    <h3 className="text-base font-semibold">{project.name}</h3>
-                    <div className="mt-3 flex flex-wrap gap-1.5">
-                      {project.tech.map((tech) => (
-                        <span
-                          key={tech}
-                          className="rounded-full bg-white/5 px-2.5 py-1 text-xs text-[color:var(--text-secondary)]"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="border-t sm:border-t-0 sm:border-l border-white/5 pt-4 sm:pt-0 sm:pl-8 flex-1 flex flex-col justify-between">
-                    <ul className="space-y-2">
-                      {project.bullets.map((bullet, i) => (
-                        <li key={i} className="flex gap-2 text-sm leading-relaxed text-[color:var(--text-secondary)]">
-                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--accent)]" />
-                          {bullet}
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="mt-5 flex gap-3 justify-end">
-                      <PanelButton href={project.demoUrl}>
-                        {project.name === "Chikitsa Cloud" ? "Download APK" : "Live Demo"}
-                      </PanelButton>
-                      <PanelButton href={project.githubUrl} variant="outline">
-                        GitHub
-                      </PanelButton>
-                    </div>
-                  </div>
-                </div>
-              ))}
+function ModalContent({ modal }: { modal: NonNullable<ModalState> }) {
+  switch (modal.type) {
+    case "project":
+      return (
+        <div className="pcard">
+          <div className="phead">
+            <div>
+              <div className="pname">{modal.data.name}</div>
+              <div className="pkind">{modal.data.kind}</div>
             </div>
           </div>
-        );
-      case "dsa":
-        return (
-          <div className="space-y-6">
-            <h2 className="text-lg font-semibold tracking-tight">DSA</h2>
-            <p className="text-sm text-[color:var(--text-secondary)]">
-              Consistent problem solving practice with a bias toward
-              data-structures, algorithms, and patterns that show up in real
-              systems.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              {content.dsaProfiles.map((profile) => (
-                <PanelButton key={profile.platform} href={profile.href}>
-                  {profile.platform} Profile
-                </PanelButton>
-              ))}
-            </div>
+          <div className="ptech">
+            {modal.data.tech.map((t) => (
+              <span className="tech-chip" key={t}>{t}</span>
+            ))}
           </div>
-        );
-      case "resume":
-        return (
-          <div className="space-y-6">
-            <h2 className="text-lg font-semibold tracking-tight">Resume</h2>
-            <div className="overflow-hidden rounded-xl border border-white/5 bg-black/20">
-              <Image
-                src={content.resume.previewImage}
-                alt="Resume preview"
-                width={791}
-                height={1024}
-                quality={100}
-                className="h-auto w-full object-contain"
-              />
-            </div>
-            <PanelButton href={content.resume.downloadUrl}>
-              Download Resume
-            </PanelButton>
+          <ul>
+            {modal.data.bullets.map((b, i) => (
+              <li key={i}>{b}</li>
+            ))}
+          </ul>
+          <div className="pbtns">
+            <a href={modal.data.demoUrl} target="_blank" rel="noopener noreferrer">
+              <button className="pbtn primary">
+                {modal.data.name === "Chikitsa Cloud" ? "Demo Video ↗" : "Live Demo ↗"}
+              </button>
+            </a>
+            <a href={modal.data.githubUrl} target="_blank" rel="noopener noreferrer">
+              <button className="pbtn">GitHub ↗</button>
+            </a>
           </div>
-        );
-      case "tech":
-        return (
-          <div className="space-y-6">
-            <h2 className="text-lg font-semibold tracking-tight">Tech Stack</h2>
-            <div className="grid gap-5 md:grid-cols-2">
-              {content.techStack.map((category) => (
-                <div
-                  key={category.id}
-                  className="rounded-xl border border-white/5 bg-black/10 p-5"
-                >
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-[color:var(--text-secondary)]">
-                    {category.label}
-                  </h3>
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {category.items.map((item) => (
-                      <span
-                        key={item}
-                        className="rounded-full bg-white/5 px-2.5 py-1 text-xs text-[color:var(--foreground)]"
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        );
-      case "contact":
-        return (
-          <div className="space-y-6">
-            <h2 className="text-lg font-semibold tracking-tight">Contact</h2>
-            <div className="grid gap-5 md:grid-cols-2">
-              {content.contact.map((item) => (
-                <div
-                  key={item.id}
-                  className="rounded-xl border border-white/5 bg-black/10 p-5"
-                >
-                  <h3 className="text-xs font-medium uppercase tracking-[0.16em] text-[color:var(--text-secondary)]">
-                    {item.label}
-                  </h3>
-                  <div className="mt-2 text-sm">
-                    {item.href ? (
-                      <Link
-                        href={item.href}
-                        className="text-[color:var(--foreground)] underline-offset-4 hover:text-[color:var(--accent)] hover:underline break-all"
-                      >
-                        {item.value}
-                      </Link>
-                    ) : (
-                      <span className="break-all">{item.value}</span>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        );
-      case "basic":
-        return (
-          <div className="space-y-6">
-            <h2 className="text-lg font-semibold tracking-tight">About</h2>
-            <p className="text-sm tracking-wide text-[color:var(--text-secondary)]">
-              {content.basicInfo.headline}
-            </p>
-            <p className="text-base leading-relaxed text-[color:var(--foreground)]">
-              {content.basicInfo.intro}
-            </p>
-            <p className="text-sm leading-relaxed text-[color:var(--text-secondary)]">
-              {content.basicInfo.subheadline}
-            </p>
-          </div>
-        );
-      default:
-        return null;
-    }
-  };
+        </div>
+      );
 
+    case "dsa":
+      return (
+        <div>
+          <p style={{ color: "var(--text-2)", fontSize: 15, lineHeight: 1.6, marginTop: 0 }}>
+            Consistent practice biased toward patterns that show up in real systems — graph traversals, sliding windows, dynamic programming.
+          </p>
+          <div style={{ display: "flex", gap: 10, marginTop: 20, flexWrap: "wrap" }}>
+            {content.dsaProfiles.map((d) => (
+              <a key={d.platform} href={d.href} target="_blank" rel="noopener noreferrer">
+                <button className="pbtn primary">{d.platform} profile ↗</button>
+              </a>
+            ))}
+          </div>
+        </div>
+      );
+
+    case "resume":
+      return (
+        <div>
+          <div style={{ overflow: "hidden", borderRadius: 12, border: "1px solid var(--border)" }}>
+            <Image
+              src={content.resume.previewImage}
+              alt="Resume preview"
+              width={791}
+              height={1024}
+              quality={100}
+              style={{ width: "100%", height: "auto", display: "block" }}
+            />
+          </div>
+          <div style={{ marginTop: 18 }}>
+            <a href={content.resume.downloadUrl} target="_blank" rel="noopener noreferrer">
+              <button className="pbtn primary">Download PDF ↓</button>
+            </a>
+          </div>
+        </div>
+      );
+
+    case "tech":
+      return (
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+          {content.techStack.map((cat) => (
+            <div key={cat.id} className="modal-cat">
+              <div className="modal-cat-label">{cat.label}</div>
+              <div className="modal-cat-chips">
+                {cat.items.map((item) => (
+                  <span className="tech-chip" key={item}>{item}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+
+    case "contact":
+      return (
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+          {content.contact.map((c) => (
+            <a
+              key={c.id}
+              href={c.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="modal-contact-item"
+            >
+              <div className="modal-contact-label">{c.label}</div>
+              <div className="modal-contact-value">{c.value}</div>
+            </a>
+          ))}
+        </div>
+      );
+  }
+}
+
+export function ExpandedPanel({ modal, onClose }: Props) {
   return (
     <AnimatePresence>
-      {activeTileId && (
+      {modal && (
         <motion.div
-          className="fixed inset-0 z-30 flex items-center justify-center px-4 sm:px-8"
+          className="modal-overlay"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.25 }}
+          transition={{ duration: 0.2 }}
           onClick={onClose}
         >
           <motion.div
-            className="absolute inset-0 bg-black/40 backdrop-blur-md"
-            aria-hidden="true"
-          />
-          <motion.div
-            layoutId={`tile-${activeTileId}`}
-            className="relative z-10 max-h-[88vh] w-full max-w-5xl rounded-2xl bg-[color:var(--surface)] p-4 sm:p-8 text-[color:var(--foreground)] tile-shadow"
-            initial={{ scale: 0.96, opacity: 0 }}
+            className="modal"
+            initial={{ scale: 0.94, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.96, opacity: 0 }}
-            transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-            onClick={(event) => event.stopPropagation()}
-            role="dialog"
-            aria-modal="true"
+            exit={{ scale: 0.94, opacity: 0 }}
+            transition={{ duration: 0.28, ease: [0.2, 0.8, 0.2, 1] }}
+            onClick={(e) => e.stopPropagation()}
           >
-            <button
-              ref={closeButtonRef}
-              onClick={onClose}
-              className="absolute right-4 top-4 rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-[color:var(--text-secondary)] hover:border-[color:var(--accent)] hover:text-[color:var(--accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent)]"
-            >
-              Close
-            </button>
-            <div className="mt-4 sm:mt-6 max-h-[74vh] sm:max-h-[76vh] overflow-y-auto pr-1 sm:pr-2">
-              {renderContent()}
+            <div className="modal-head">
+              <div className="modal-title">{getTitle(modal)}</div>
+              <button className="modal-close" onClick={onClose}>Close · Esc</button>
+            </div>
+            <div className="modal-body">
+              <ModalContent modal={modal} />
             </div>
           </motion.div>
         </motion.div>
@@ -236,30 +168,3 @@ export function ExpandedPanel({ activeTileId, onClose }: ExpandedPanelProps) {
     </AnimatePresence>
   );
 }
-
-type PanelButtonProps = {
-  href: string;
-  children: React.ReactNode;
-  variant?: "solid" | "outline";
-};
-
-function PanelButton({
-  href,
-  children,
-  variant = "solid",
-}: PanelButtonProps) {
-  const baseClasses =
-    "inline-flex items-center justify-center rounded-full px-4 py-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent)]";
-
-  const variantClasses =
-    variant === "solid"
-      ? "bg-[color:var(--accent)] text-white hover:bg-[#c32c77]"
-      : "border border-[color:var(--accent)] text-[color:var(--accent)] hover:bg-[color:var(--accent)]/10";
-
-  return (
-    <Link href={href} className={`${baseClasses} ${variantClasses}`} target="_blank" rel="noopener noreferrer">
-      {children}
-    </Link>
-  );
-}
-

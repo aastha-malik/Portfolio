@@ -10,6 +10,7 @@ export type TileId =
 export type Project = {
   id: string;
   name: string;
+  kind: string;
   bullets: string[];
   tech: string[];
   demoUrl: string;
@@ -71,6 +72,7 @@ export const content: PortfolioContent = {
     {
       id: "project-chikitsa",
       name: "Chikitsa Cloud",
+      kind: "Healthcare · Backend",
       bullets: [
         "Architected the full backend — 35 REST endpoints across 7 modules: Auth, User Management, Medical Records, Health Analysis, Family Access Control, Hospital Discovery, and Feedback",
         "UUID primary keys over sequential IDs — eliminates enumeration vulnerabilities and referential integrity issues caused by deletions",
@@ -86,6 +88,7 @@ export const content: PortfolioContent = {
     {
       id: "project-blossom",
       name: "Blossom",
+      kind: "Productivity · Gamified",
       bullets: [
         "Solo end-to-end project — gamified task manager with a virtual pet that degrades if you miss tasks; behavioral pressure, not just tracking",
         "20+ REST endpoints covering task CRUD, streaks, XP/points, rewards, user analytics, and team management",
@@ -101,6 +104,7 @@ export const content: PortfolioContent = {
     {
       id: "project-video-object-remover",
       name: "Video Object Remover",
+      kind: "ML · Computer Vision",
       bullets: [
         "Click-to-remove video pipeline: SAM2 segments and tracks the object across every frame → ProPainter inpaints the removed regions → ffmpeg encodes the final video",
         "3-tier architecture: Next.js frontend → FastAPI backend → Hugging Face Spaces ML pipeline; built and deployed the full backend and infrastructure solo",
@@ -114,6 +118,7 @@ export const content: PortfolioContent = {
     {
       id: "project-face-fusion",
       name: "Face Fusion",
+      kind: "ML · Generative",
       bullets: [
         "Frame-by-frame face swap pipeline: InsightFace detects and embeds faces → inswapper_128 performs neural face swap → GFPGAN restores and sharpens output → ffmpeg merges audio and encodes final MP4",
         "ONNX Runtime for GPU-accelerated inference — ~12 frames/second on T4 GPU on HF Spaces, the practical ceiling for this hardware without batching optimizations",
@@ -129,10 +134,6 @@ export const content: PortfolioContent = {
     {
       platform: "LeetCode",
       href: "https://leetcode.com/u/aastha_malik/",
-    },
-    {
-      platform: "NeetCode",
-      href: "https://neetcode.io/profile",
     },
   ],
   resume: {
@@ -215,6 +216,18 @@ export const content: PortfolioContent = {
       label: "LinkedIn",
       value: "aastha-malik-",
       href: "https://linkedin.com/in/aastha-malik-",
+    },
+    {
+      id: "twitter",
+      label: "Twitter / X",
+      value: "aastha__malik",
+      href: "https://x.com/aastha__malik",
+    },
+    {
+      id: "huggingface",
+      label: "Hugging Face",
+      value: "aastha-malik",
+      href: "https://huggingface.co/aastha-malik",
     },
   ],
   basicInfo: {
