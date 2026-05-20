@@ -323,7 +323,7 @@ export function GridLayout() {
               </div>
               <div className="about-stats">
                 <div className="stat">
-                  <div className="num">55+</div>
+                  <div className="num">65+</div>
                   <div className="lab">REST endpoints shipped</div>
                 </div>
                 <div className="stat">

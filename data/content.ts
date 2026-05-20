@@ -74,7 +74,7 @@ export const content: PortfolioContent = {
       name: "Chikitsa Cloud",
       kind: "Healthcare · Backend",
       bullets: [
-        "Architected the full backend — 35 REST endpoints across 7 modules: Auth, User Management, Medical Records, Health Analysis, Family Access Control, Hospital Discovery, and Feedback",
+        "Architected and deployed a full-stack healthcare backend — 35 REST API endpoints across 7 routes: Auth (9), Users (7), Medical Records (5), Medical Analysis (1), Family Access (10), Hospital Search (1), Feedback (1)",
         "UUID primary keys over sequential IDs — eliminates enumeration vulnerabilities and referential integrity issues caused by deletions",
         "Dual-channel family access control via QR code scanning and email invitations — frictionless UX over password sharing, same reasoning as UPI over card payments",
         "Medical files on Supabase Storage (AWS S3-backed); PostgreSQL stores metadata and references only — keeps the DB lean, files encrypted and cloud-managed",
@@ -86,18 +86,17 @@ export const content: PortfolioContent = {
       githubUrl: "https://github.com/aastha-malik/ChikitsaCloud",
     },
     {
-      id: "project-blossom",
-      name: "Blossom",
-      kind: "Productivity · Gamified",
+      id: "project-tendr",
+      name: "Tendr",
+      kind: "Productivity · Full-Stack",
       bullets: [
-        "Solo end-to-end project — gamified task manager with a virtual pet that degrades if you miss tasks; behavioral pressure, not just tracking",
-        "20+ REST endpoints covering task CRUD, streaks, XP/points, rewards, user analytics, and team management",
-        "Gamification engine: daily streak tracking, inactivity penalties on missed days, and reward tier progression driven by cumulative XP — backend-enforced, not cosmetic",
-        "Migrated from SQLite to PostgreSQL mid-project — SQLite hit its limits on connection handling, concurrency, and cloud compatibility; Postgres was the right call for production",
-        "OTP-based password reset over email links — already using OTP at signup, keeping it consistent reduced complexity and gave users a uniform auth experience",
-        "Deployed on Render with PostgreSQL — API design, schema, auth, gamification logic, and deployment all owned solo",
+        "Solo full-stack project — gamified task manager with a virtual pet: 30+ REST endpoints (tasks, pets, focus sessions, analytics, auth) backed by PostgreSQL with SQLAlchemy ORM, React 19 + TypeScript SPA on the frontend",
+        "Server-enforced XP system: task rewards scale by priority (High: 25, Medium: 15, Low: 10 XP), decay 3 XP/day for overdue tasks (floor: 1), and apply XP penalties when deeply overdue tasks are deleted — all computed at the API layer, not the client",
+        "Pet aging via backend-enforced qualifying-day system — a pet gains age only when the user both feeds it (costs 35 XP) and logs a focus session on the same calendar day, deduplicated via a join table",
+        "Dual auth flows: email/password with bcrypt + 6-digit OTP email verification (30-min TTL); and Google OAuth2 via Authlib with a short-lived pending JWT for new-user username selection — login accepts either email or username, providers handled uniformly at the route level",
+        "Migrated from SQLite to PostgreSQL mid-project after hitting connection-pooling and concurrency limits; preserved live data with additive ALTER TABLE migrations and UUID primary keys; deployed on Render with environment-aware CORS, HTTPS-only session middleware, and proxy-header trust",
       ],
-      tech: ["Python", "FastAPI", "PostgreSQL", "JWT", "OAuth2", "Render"],
+      tech: ["Python", "FastAPI", "PostgreSQL", "SQLAlchemy", "JWT", "OAuth2", "React 19", "TypeScript", "Render"],
       demoUrl: "https://blossom-arru.onrender.com/",
       githubUrl: "https://github.com/aastha-malik/Blossom",
     },
@@ -159,12 +158,12 @@ export const content: PortfolioContent = {
     {
       id: "auth",
       label: "Authentication & Security",
-      items: ["JWT", "OAuth2.0", "Google Sign-In", "bcrypt"],
+      items: ["JWT", "OAuth2.0", "Google Sign-In", "bcrypt", "UUID-based schema design"],
     },
     {
       id: "cloud",
       label: "Cloud & Deployment",
-      items: ["Render", "Vercel", "Supabase Storage", "Hugging Face Spaces"],
+      items: ["Render", "Vercel", "Supabase Storage", "Hugging Face Spaces", "Docker"],
     },
     {
       id: "apis",
@@ -234,7 +233,7 @@ export const content: PortfolioContent = {
     headline: "Backend Developer",
     subheadline: "Always shipping something new.",
     intro:
-      "I build and deploy production-grade backend systems. My projects span healthcare (Chikitsa Cloud — 35 REST API endpoints, OAuth2, QR-based family access control), productivity (Blossom — gamified task management with streaks, XP, and reward tiers), and AI/ML (Video Object Remover using Meta's SAM2 + ProPainter; Face Fusion achieving ~12fps face-swap on T4 GPU via ONNX Runtime — both deployed on Hugging Face Spaces with Docker). I work primarily in Python with FastAPI, PostgreSQL, and JWT/OAuth2 — and I'm comfortable taking a project from API design all the way to cloud deployment.",
+      "I build and deploy production-grade backend systems. My projects span healthcare (Chikitsa Cloud — 35 REST API endpoints, OAuth2, QR-based family access control), productivity (Tendr — gamified full-stack task manager with server-enforced XP, virtual pet mechanics, and React 19 frontend), and AI/ML (Video Object Remover using Meta's SAM2 + ProPainter; Face Fusion achieving ~12fps face-swap on T4 GPU via ONNX Runtime — both deployed on Hugging Face Spaces with Docker). I work primarily in Python with FastAPI, PostgreSQL, and JWT/OAuth2 — and I'm comfortable taking a project from API design all the way to cloud deployment.",
   },
   profile: {
     name: "Aastha Malik",
