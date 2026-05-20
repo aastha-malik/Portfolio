@@ -97,8 +97,8 @@ export const content: PortfolioContent = {
         "Migrated from SQLite to PostgreSQL mid-project after hitting connection-pooling and concurrency limits; preserved live data with additive ALTER TABLE migrations and UUID primary keys; deployed on Render with environment-aware CORS, HTTPS-only session middleware, and proxy-header trust",
       ],
       tech: ["Python", "FastAPI", "PostgreSQL", "SQLAlchemy", "JWT", "OAuth2", "React 19", "TypeScript", "Render"],
-      demoUrl: "https://blossom-arru.onrender.com/",
-      githubUrl: "https://github.com/aastha-malik/Blossom",
+      demoUrl: "https://tendr-tick-treats.onrender.com/",
+      githubUrl: "https://github.com/aastha-malik/Tendr",
     },
     {
       id: "project-video-object-remover",
