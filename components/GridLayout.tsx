@@ -264,7 +264,7 @@ export function GridLayout() {
             <div>
               <div className="tile-label"><span className="num">03</span>/ Experience</div>
               <div className="tile-title">Résumé</div>
-              <div className="tile-sub">PDF · One page · Updated Mar &apos;26</div>
+              <div className="tile-sub">PDF · One page · Updated May &apos;26</div>
             </div>
             <div className="preview" />
             <div className="arrow"><Arrow /></div>
