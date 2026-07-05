@@ -1,4 +1,5 @@
 export type TileId =
+  | "experience"
   | "projects"
   | "dsa"
   | "resume"
@@ -14,7 +15,19 @@ export type Project = {
   bullets: string[];
   tech: string[];
   demoUrl: string;
-  githubUrl: string;
+  githubUrl?: string;
+};
+
+export type Experience = {
+  id: string;
+  company: string;
+  role: string;
+  period: string;
+  summary: string;
+  bullets: string[];
+  tech: string[];
+  url: string;
+  urlLabel: string;
 };
 
 export type TechCategoryId =
@@ -43,14 +56,14 @@ export type ContactItem = {
 };
 
 export type PortfolioContent = {
+  experience: Experience[];
   projects: Project[];
   dsaProfiles: {
     platform: "LeetCode" | "GitHub" | "LinkedIn" | "NeetCode";
     href: string;
   }[];
   resume: {
-    previewImage: string;
-    downloadUrl: string;
+    pdfUrl: string;
   };
   techStack: TechCategory[];
   contact: ContactItem[];
@@ -68,7 +81,66 @@ export type PortfolioContent = {
 };
 
 export const content: PortfolioContent = {
+  experience: [
+    {
+      id: "exp-vedi",
+      company: "Vedi Collections",
+      role: "Full-Stack Developer · Client Project",
+      period: "June 2026",
+      summary:
+        "Designed, built, and shipped a production e-commerce platform as a freelance engagement for a paying client — product catalog, orders, and admin panel.",
+      bullets: [
+        "Shipped a full production e-commerce store end-to-end for a paying client — product catalog, order flow, and an admin panel — with a Next.js frontend and a FastAPI backend on Supabase PostgreSQL",
+        "Deployed the frontend on Vercel and the backend on Render behind a custom domain; owned the whole stack from schema and API design to production hosting",
+        "Integrated Google Ads conversion tracking so the client could measure the return on their advertising campaigns",
+      ],
+      tech: ["Next.js", "FastAPI", "Supabase", "PostgreSQL", "Vercel", "Render"],
+      url: "https://vedicollections.com",
+      urlLabel: "vedicollections.com",
+    },
+  ],
   projects: [
+    {
+      id: "project-klipo",
+      name: "Klipo",
+      kind: "Video · Captioning",
+      bullets: [
+        "Building a multilingual subtitle and captioning engine on top of open-source ML models, with support for multiple Indian languages",
+        "User-editable captioning workflow with customizable subtitle styling — rendered and burned directly into the video via ffmpeg",
+      ],
+      tech: ["Python", "FastAPI", "ffmpeg", "ML models"],
+      demoUrl: "https://www.tryklipo.com/",
+    },
+    {
+      id: "project-tendr",
+      name: "Tendr",
+      kind: "Productivity · Full-Stack",
+      bullets: [
+        "Solo full-stack project — gamified task manager with a virtual pet: 30+ REST endpoints (tasks, pets, focus sessions, analytics, auth) backed by PostgreSQL with SQLAlchemy ORM, React 19 + TypeScript SPA on the frontend",
+        "Server-enforced XP system: task rewards scale by priority (High: 25, Medium: 15, Low: 10 XP), decay 3 XP/day for overdue tasks (floor: 1), and apply XP penalties when deeply overdue tasks are deleted — all computed at the API layer, not the client",
+        "Pet aging via backend-enforced qualifying-day system — a pet gains age only when the user both feeds it (costs 35 XP) and logs a focus session on the same calendar day, deduplicated via a join table",
+        "Dual auth flows: email/password with bcrypt + 6-digit OTP email verification (30-min TTL); and Google OAuth2 via Authlib with a short-lived pending JWT for new-user username selection — login accepts either email or username, providers handled uniformly at the route level",
+        "Migrated from SQLite to PostgreSQL mid-project after hitting connection-pooling and concurrency limits; preserved live data with additive ALTER TABLE migrations and UUID primary keys; deployed on Render with environment-aware CORS, HTTPS-only session middleware, and proxy-header trust",
+        "Launched solo on Product Hunt and ranked #66 on launch day",
+      ],
+      tech: ["Python", "FastAPI", "PostgreSQL", "SQLAlchemy", "JWT", "OAuth2", "React 19", "TypeScript", "Render"],
+      demoUrl: "https://tendr-tick-treats.onrender.com/",
+      githubUrl: "https://github.com/aastha-malik/Tendr",
+    },
+    {
+      id: "project-video-object-remover",
+      name: "Video Object Remover",
+      kind: "ML · Computer Vision",
+      bullets: [
+        "Click-to-remove video pipeline: SAM2 segments and tracks the object across every frame → ProPainter inpaints the removed regions → ffmpeg encodes the final video",
+        "3-tier architecture: Next.js frontend → FastAPI backend → Hugging Face Spaces ML pipeline; built and deployed the full backend and infrastructure solo",
+        "HF Spaces inference takes 30–60s — a synchronous call would timeout; used SSE to stream real-time progress updates to the frontend throughout processing, WebSocket syncs live progress percentage between the HF pipeline and the backend",
+        "Resolved GPU out-of-memory failures at 720p via fp16 inference and chunked processing; containerized with Docker on Hugging Face Spaces, supporting both CPU and GPU inference",
+      ],
+      tech: ["Python", "FastAPI", "WebSocket", "SSE", "SAM2", "ProPainter", "OpenCV", "Gradio", "Docker", "Hugging Face Spaces"],
+      demoUrl: "https://huggingface.co/spaces/aastha-malik/video-object-remover",
+      githubUrl: "https://github.com/aastha-malik/video-object-removal",
+    },
     {
       id: "project-chikitsa",
       name: "Chikitsa Cloud",
@@ -84,35 +156,6 @@ export const content: PortfolioContent = {
       tech: ["Python", "FastAPI", "PostgreSQL", "Supabase", "JWT", "OAuth2", "Render"],
       demoUrl: "https://drive.google.com/file/d/10A-i4ca3aM3ZiWz79QTj451qiwctJ6P_/view?usp=sharing",
       githubUrl: "https://github.com/aastha-malik/ChikitsaCloud",
-    },
-    {
-      id: "project-tendr",
-      name: "Tendr",
-      kind: "Productivity · Full-Stack",
-      bullets: [
-        "Solo full-stack project — gamified task manager with a virtual pet: 30+ REST endpoints (tasks, pets, focus sessions, analytics, auth) backed by PostgreSQL with SQLAlchemy ORM, React 19 + TypeScript SPA on the frontend",
-        "Server-enforced XP system: task rewards scale by priority (High: 25, Medium: 15, Low: 10 XP), decay 3 XP/day for overdue tasks (floor: 1), and apply XP penalties when deeply overdue tasks are deleted — all computed at the API layer, not the client",
-        "Pet aging via backend-enforced qualifying-day system — a pet gains age only when the user both feeds it (costs 35 XP) and logs a focus session on the same calendar day, deduplicated via a join table",
-        "Dual auth flows: email/password with bcrypt + 6-digit OTP email verification (30-min TTL); and Google OAuth2 via Authlib with a short-lived pending JWT for new-user username selection — login accepts either email or username, providers handled uniformly at the route level",
-        "Migrated from SQLite to PostgreSQL mid-project after hitting connection-pooling and concurrency limits; preserved live data with additive ALTER TABLE migrations and UUID primary keys; deployed on Render with environment-aware CORS, HTTPS-only session middleware, and proxy-header trust",
-      ],
-      tech: ["Python", "FastAPI", "PostgreSQL", "SQLAlchemy", "JWT", "OAuth2", "React 19", "TypeScript", "Render"],
-      demoUrl: "https://tendr-tick-treats.onrender.com/",
-      githubUrl: "https://github.com/aastha-malik/Tendr",
-    },
-    {
-      id: "project-video-object-remover",
-      name: "Video Object Remover",
-      kind: "ML · Computer Vision",
-      bullets: [
-        "Click-to-remove video pipeline: SAM2 segments and tracks the object across every frame → ProPainter inpaints the removed regions → ffmpeg encodes the final video",
-        "3-tier architecture: Next.js frontend → FastAPI backend → Hugging Face Spaces ML pipeline; built and deployed the full backend and infrastructure solo",
-        "HF Spaces inference takes 30–60s — a synchronous call would timeout; used SSE to stream real-time progress updates to the frontend throughout processing, WebSocket syncs live progress percentage between the HF pipeline and the backend",
-        "ML pipeline containerized with Docker on Hugging Face Spaces; supports both CPU and GPU inference",
-      ],
-      tech: ["Python", "FastAPI", "WebSocket", "SSE", "SAM2", "ProPainter", "OpenCV", "Gradio", "Docker", "Hugging Face Spaces"],
-      demoUrl: "https://huggingface.co/spaces/aastha-malik/video-object-remover",
-      githubUrl: "https://github.com/aastha-malik/video-object-remover",
     },
     {
       id: "project-face-fusion",
@@ -136,14 +179,13 @@ export const content: PortfolioContent = {
     },
   ],
   resume: {
-    previewImage: "/resume-preview-v5.png",
-    downloadUrl: "https://drive.google.com/file/d/1do2N7AP97TTnx6aWRvHQu4qkFG39r2Qq/view?usp=sharing",
+    pdfUrl: "/aastha-malik-resume.pdf",
   },
   techStack: [
     {
       id: "languages",
       label: "Languages",
-      items: ["Python"],
+      items: ["Python", "JavaScript", "TypeScript"],
     },
     {
       id: "backend",
@@ -233,7 +275,7 @@ export const content: PortfolioContent = {
     headline: "Backend Developer",
     subheadline: "Always shipping something new.",
     intro:
-      "I build and deploy production-grade backend systems. My projects span healthcare (Chikitsa Cloud — 35 REST API endpoints, OAuth2, QR-based family access control), productivity (Tendr — gamified full-stack task manager with server-enforced XP, virtual pet mechanics, and React 19 frontend), and AI/ML (Video Object Remover using Meta's SAM2 + ProPainter; Face Fusion achieving ~12fps face-swap on T4 GPU via ONNX Runtime — both deployed on Hugging Face Spaces with Docker). I work primarily in Python with FastAPI, PostgreSQL, and JWT/OAuth2 — and I'm comfortable taking a project from API design all the way to cloud deployment.",
+      "I build and deploy production-grade backend systems. I've shipped a production e-commerce platform for a paying client (Vedi Collections — Next.js + FastAPI on Supabase, behind a custom domain), and my own projects span productivity (Tendr — a gamified full-stack task manager with server-enforced XP and virtual-pet mechanics, launched to #66 on Product Hunt), healthcare (Chikitsa Cloud — 35 REST endpoints, OAuth2, QR-based family access control), and AI/ML (Video Object Remover using Meta's SAM2 + ProPainter; Face Fusion at ~12fps face-swap on T4 GPU via ONNX Runtime — both deployed on Hugging Face Spaces with Docker). I work primarily in Python with FastAPI, PostgreSQL, and JWT/OAuth2 — and I'm comfortable taking a project from API design all the way to cloud deployment.",
   },
   profile: {
     name: "Aastha Malik",

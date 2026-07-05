@@ -25,7 +25,7 @@ function Arrow() {
   );
 }
 
-const leftRailItems = ["BACKEND","FASTAPI","POSTGRES","ML · PIPELINES","OAUTH / JWT","SHIPPING DAILY","DOCKER","OPEN TO WORK"];
+const leftRailItems = ["BACKEND","FASTAPI","POSTGRES","ML · PIPELINES","OAUTH / JWT","FREELANCE","SHIPPING DAILY","DOCKER","OPEN TO WORK"];
 const rightRailItems = ["AASTHA MALIK","PORTFOLIO · V2","2026","PYTHON","REST · WEBSOCKET","HUGGING FACE","SAM2 · PROPAINTER","SYSTEMS THINKING"];
 
 export function GridLayout() {
@@ -194,7 +194,7 @@ export function GridLayout() {
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M4 4h16v16H4z" /><path d="M4 9h16M9 4v16" />
                 </svg>
-                4 shipped projects
+                Freelance + {content.projects.length} projects
               </div>
             </div>
           </div>
@@ -215,16 +215,62 @@ export function GridLayout() {
             </div>
           </div>
 
+          {/* ── EXPERIENCE ── */}
+          <div className="tile exp-tile static">
+            <div className="exp-grid">
+              <div className="exp-intro">
+                <div className="tile-label">
+                  <span className="num">01</span>/ Experience
+                </div>
+                <div className="exp-lead">
+                  Freelance — <em>shipped production software for a paying client</em>, schema to custom domain.
+                </div>
+                <div className="exp-note">
+                  <span className="dot" />
+                  Available for freelance work
+                </div>
+              </div>
+              <div className="exp-list">
+                {content.experience.map((e) => (
+                  <div key={e.id} className="exp-item">
+                    <div className="exp-item-head">
+                      <div>
+                        <div className="exp-company">{e.company}</div>
+                        <div className="exp-role">{e.role}</div>
+                      </div>
+                      <div className="exp-period">{e.period}</div>
+                    </div>
+                    <ul className="exp-bullets">
+                      {e.bullets.map((b, i) => (
+                        <li key={i}>{b}</li>
+                      ))}
+                    </ul>
+                    <div className="exp-foot">
+                      <div className="exp-tech">
+                        {e.tech.map((t) => (
+                          <span key={t} className="tech-chip">{t}</span>
+                        ))}
+                      </div>
+                      <a href={e.url} target="_blank" rel="noopener noreferrer" className="exp-visit">
+                        {e.urlLabel} ↗
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
           {/* ── PROJECTS ── */}
           <div className="tile projects-tile static" style={{ cursor: "default" }}>
             <div className="proj-head">
               <div>
                 <div className="tile-label">
-                  <span className="num">01</span>/ Selected work
+                  <span className="num">02</span>/ Selected work
                 </div>
                 <div className="tile-title" style={{ marginTop: 4 }}>Projects</div>
               </div>
-              <div className="proj-count">{content.projects.length} SHIPPED</div>
+              <div className="proj-count">{content.projects.length} PROJECTS</div>
             </div>
             <div className="proj-list">
               {content.projects.map((p, i) => (
@@ -247,7 +293,7 @@ export function GridLayout() {
           {/* ── DSA ── */}
           <div className="tile sq dsa-tile" onClick={() => setModal({ type: "dsa" })}>
             <div>
-              <div className="tile-label"><span className="num">02</span>/ Problem solving</div>
+              <div className="tile-label"><span className="num">03</span>/ Problem solving</div>
               <div className="tile-title">DSA</div>
               <div className="dsa-platforms">
                 {content.dsaProfiles.map((p) => (
@@ -262,9 +308,9 @@ export function GridLayout() {
           {/* ── RESUME ── */}
           <div className="tile sq resume-tile" onClick={() => setModal({ type: "resume" })}>
             <div>
-              <div className="tile-label"><span className="num">03</span>/ Experience</div>
+              <div className="tile-label"><span className="num">04</span>/ One-pager</div>
               <div className="tile-title">Résumé</div>
-              <div className="tile-sub">PDF · One page · Updated May &apos;26</div>
+              <div className="tile-sub">PDF · One page · Updated Jul &apos;26</div>
             </div>
             <div className="preview" />
             <div className="arrow"><Arrow /></div>
@@ -273,7 +319,7 @@ export function GridLayout() {
           {/* ── CONTACT ── */}
           <div className="tile contact-tile" onClick={() => setModal({ type: "contact" })}>
             <div>
-              <div className="tile-label"><span className="num">04</span>/ Let&apos;s talk</div>
+              <div className="tile-label"><span className="num">05</span>/ Let&apos;s talk</div>
               <div className="tile-title">Contact</div>
             </div>
             <div className="links">
@@ -289,7 +335,7 @@ export function GridLayout() {
 
           {/* ── TECH ── */}
           <div className="tile tech-tile" onClick={() => setModal({ type: "tech" })}>
-            <div className="tile-label"><span className="num">05</span>/ What I use</div>
+            <div className="tile-label"><span className="num">06</span>/ What I use</div>
             <div className="tile-title" style={{ marginTop: 4 }}>Tech stack</div>
             <div className="tech-grid">
               {techPrimary.map((t) => (
@@ -312,7 +358,7 @@ export function GridLayout() {
             <div className="about-grid">
               <div>
                 <div className="tile-label">
-                  <span style={{ color: "var(--accent-2)" }}>06</span>/ About
+                  <span style={{ color: "var(--accent-2)" }}>07</span>/ About
                 </div>
                 <div className="about-lead">
                   Backend-first — <em>API design to cloud deployment</em>, end to end.
@@ -327,7 +373,7 @@ export function GridLayout() {
                   <div className="lab">REST endpoints shipped</div>
                 </div>
                 <div className="stat">
-                  <div className="num">4</div>
+                  <div className="num">6</div>
                   <div className="lab">Live deployments</div>
                 </div>
                 <div className="stat">

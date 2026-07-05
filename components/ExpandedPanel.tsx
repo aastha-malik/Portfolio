@@ -1,7 +1,6 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
 import { content, type Project } from "@/data/content";
 
 type ModalState =
@@ -55,9 +54,11 @@ function ModalContent({ modal }: { modal: NonNullable<ModalState> }) {
                 {modal.data.name === "Chikitsa Cloud" ? "Demo Video ↗" : "Live Demo ↗"}
               </button>
             </a>
-            <a href={modal.data.githubUrl} target="_blank" rel="noopener noreferrer">
-              <button className="pbtn">GitHub ↗</button>
-            </a>
+            {modal.data.githubUrl && (
+              <a href={modal.data.githubUrl} target="_blank" rel="noopener noreferrer">
+                <button className="pbtn">GitHub ↗</button>
+              </a>
+            )}
           </div>
         </div>
       );
@@ -81,19 +82,24 @@ function ModalContent({ modal }: { modal: NonNullable<ModalState> }) {
     case "resume":
       return (
         <div>
-          <div style={{ overflow: "hidden", borderRadius: 12, border: "1px solid var(--border)" }}>
-            <Image
-              src={content.resume.previewImage}
-              alt="Resume preview"
-              width={791}
-              height={1024}
-              quality={100}
-              style={{ width: "100%", height: "auto", display: "block" }}
-            />
+          <div className="resume-embed">
+            <object data={`${content.resume.pdfUrl}#view=FitH`} type="application/pdf">
+              <iframe
+                src={`${content.resume.pdfUrl}#view=FitH`}
+                title="Aastha Malik — Résumé"
+                style={{ width: "100%", height: "100%", border: 0 }}
+              />
+            </object>
           </div>
-          <div style={{ marginTop: 18 }}>
-            <a href={content.resume.downloadUrl} target="_blank" rel="noopener noreferrer">
-              <button className="pbtn primary">Download PDF ↓</button>
+          <div className="resume-embed-foot">
+            <span>Links in the résumé are clickable.</span>
+            <a
+              href={content.resume.pdfUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="resume-openlink"
+            >
+              Open full PDF ↗
             </a>
           </div>
         </div>
