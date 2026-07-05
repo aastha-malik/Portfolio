@@ -1,0 +1,22 @@
+# Reference blueprint for the tracker web service.
+# You can either commit this and use Render's "Blueprint" flow, or just
+# create the service by hand with the equivalent dashboard settings (see README).
+# Secrets (sync: false) are typed into the dashboard, not stored in git.
+services:
+  - type: web
+    name: portfolio-tracker
+    runtime: python
+    plan: free
+    rootDir: tracker
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_KEY
+        sync: false
+      - key: SUMMARY_TOKEN
+        sync: false
+      - key: ALLOWED_ORIGINS
+        value: https://aastha-malik-portfolio.onrender.com

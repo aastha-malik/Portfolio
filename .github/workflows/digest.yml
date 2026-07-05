@@ -1,0 +1,24 @@
+name: Daily visit digest
+
+on:
+  schedule:
+    # 22:00 IST == 16:30 UTC (IST = UTC+5:30). GitHub cron is always UTC.
+    - cron: "30 16 * * *"
+  workflow_dispatch: {}   # lets you run it on-demand from the Actions tab
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Send digest
+        env:
+          TRACKER_URL: ${{ secrets.TRACKER_URL }}
+          SUMMARY_TOKEN: ${{ secrets.SUMMARY_TOKEN }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DIGEST_TO: ${{ secrets.DIGEST_TO }}
+        run: python scripts/digest.py
