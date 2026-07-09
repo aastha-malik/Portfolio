@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { ExpandedPanel } from "./ExpandedPanel";
+import { FlowyBackground } from "./FlowyBackground";
 import { content, type Project } from "@/data/content";
 
 const techPrimary = ["Python", "FastAPI", "PostgreSQL"];
@@ -129,7 +130,7 @@ export function GridLayout() {
 
   return (
     <>
-      <div className="aurora" aria-hidden="true" />
+      <FlowyBackground />
 
       {/* Left rail */}
       <div className="v-rail left" aria-hidden="true">
@@ -156,10 +157,18 @@ export function GridLayout() {
       </div>
 
       <div className="portfolio-wrap">
+        <nav className="site-nav" aria-label="Primary">
+          <div className="site-nav-pill">
+            <a href="#section-hero">Home</a>
+            <a href="#section-projects">Projects</a>
+            <a href="#section-contact">Contact</a>
+          </div>
+        </nav>
+
         <div className="bento">
 
           {/* ── HERO ── */}
-          <div className="tile hero-tile static">
+          <div id="section-hero" className="tile hero-tile static">
             <div>
               <div className="status">
                 <span className="pulse" />
@@ -262,7 +271,7 @@ export function GridLayout() {
           </div>
 
           {/* ── PROJECTS ── */}
-          <div className="tile projects-tile static" style={{ cursor: "default" }}>
+          <div id="section-projects" className="tile projects-tile static" style={{ cursor: "default" }}>
             <div className="proj-head">
               <div>
                 <div className="tile-label">
@@ -317,7 +326,7 @@ export function GridLayout() {
           </div>
 
           {/* ── CONTACT ── */}
-          <div className="tile contact-tile" onClick={() => setModal({ type: "contact" })}>
+          <div id="section-contact" className="tile contact-tile" onClick={() => setModal({ type: "contact" })}>
             <div>
               <div className="tile-label"><span className="num">05</span>/ Let&apos;s talk</div>
               <div className="tile-title">Contact</div>

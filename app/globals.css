@@ -21,13 +21,21 @@
 
 * { box-sizing: border-box; }
 
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
+}
+
 html, body {
   margin: 0;
   padding: 0;
-  background: var(--bg);
   color: var(--text);
   font-family: var(--sans);
   -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }
 
 body {
@@ -95,37 +103,21 @@ a { color: inherit; text-decoration: none; }
   display: block;
 }
 
-/* ── Ambient aurora ── */
-.aurora { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
-.aurora::before, .aurora::after {
-  content: '';
+/* ── Flowy ribbon background ── */
+.flowy-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  background: var(--bg);
+}
+.flowy-bg canvas {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(90px);
-  opacity: 0.22;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  filter: blur(38px);
   mix-blend-mode: screen;
-}
-.aurora::before {
-  width: 620px; height: 620px;
-  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
-  top: -180px; left: -120px;
-  animation: drift1 22s ease-in-out infinite alternate;
-}
-.aurora::after {
-  width: 520px; height: 520px;
-  background: radial-gradient(circle, var(--accent-2) 0%, transparent 70%);
-  bottom: -160px; right: -100px;
-  animation: drift2 26s ease-in-out infinite alternate;
-}
-@keyframes drift1 {
-  0%   { transform: translate(0, 0) scale(1); }
-  50%  { transform: translate(280px, 180px) scale(1.15); }
-  100% { transform: translate(120px, 420px) scale(0.95); }
-}
-@keyframes drift2 {
-  0%   { transform: translate(0, 0) scale(1); }
-  50%  { transform: translate(-220px, -240px) scale(1.1); }
-  100% { transform: translate(-80px, -380px) scale(0.9); }
 }
 
 /* ── Reveal-on-load stagger ── */
@@ -730,8 +722,45 @@ a { color: inherit; text-decoration: none; }
 .portfolio-wrap {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 48px 0 96px;
+  padding: 8px 0 96px;
 }
+
+/* ── Sticky nav ── */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: center;
+  padding: 16px 0;
+}
+.site-nav-pill {
+  display: flex;
+  gap: 6px;
+  background: rgba(11,11,15,0.7);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--border-2);
+  border-radius: 999px;
+  padding: 6px;
+}
+.site-nav-pill a {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+  padding: 8px 16px;
+  border-radius: 999px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.site-nav-pill a:hover {
+  background: rgba(255,95,168,0.12);
+  color: var(--accent-2);
+}
+
+/* Offset scroll targets so the sticky pill doesn't cover them */
+#section-hero, #section-projects, #section-contact { scroll-margin-top: 76px; }
 
 /* ── Footer bar ── */
 .footbar {
@@ -943,7 +972,6 @@ a { color: inherit; text-decoration: none; }
 
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
-  .aurora::before, .aurora::after,
   .hero-tile .pulse,
   .v-rail-track { animation: none !important; }
   .reveal, .reveal-text > span { opacity: 1 !important; transform: none !important; }
