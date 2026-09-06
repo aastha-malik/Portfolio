@@ -545,7 +545,7 @@ a { color: inherit; text-decoration: none; }
 /* ── Experience tile ── */
 .exp-tile {
   grid-column: span 12;
-  grid-row: span 4;
+  grid-row: span 5;
   padding: 32px 40px;
 }
 .exp-grid {
@@ -553,7 +553,13 @@ a { color: inherit; text-decoration: none; }
   grid-template-columns: 0.85fr 1.4fr;
   gap: 44px;
   height: 100%;
-  align-items: center;
+  align-items: start;
+  padding: 4px 0;
+}
+.exp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 .exp-lead {
   font-family: var(--display);
@@ -644,6 +650,7 @@ a { color: inherit; text-decoration: none; }
   flex-wrap: wrap;
 }
 .exp-tech { display: flex; flex-wrap: wrap; gap: 6px; }
+.exp-links { display: flex; flex-wrap: wrap; gap: 8px; }
 .exp-visit {
   font-family: var(--mono);
   font-size: 11px;
@@ -933,6 +940,112 @@ a { color: inherit; text-decoration: none; }
 .pbtn.primary { background: var(--accent); border-color: var(--accent); color: white; }
 .pbtn:hover { background: var(--accent-2); border-color: var(--accent-2); color: white; }
 
+/* ── Project media: gallery ── */
+.pmedia {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  margin: 0 0 16px;
+}
+.pmedia-item { margin: 0; }
+.pmedia-frame {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--surface-2);
+}
+.pmedia-frame img,
+.pmedia-frame video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.pmedia-cap {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  color: var(--text-3);
+  margin-top: 6px;
+}
+.pmedia-ph {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  text-align: center;
+  padding: 8px;
+  border: 1px dashed var(--border-2);
+  border-radius: 10px;
+  background: repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0 8px, transparent 8px 16px);
+}
+.pmedia-ph-hint {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+}
+.pmedia-ph-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-2);
+}
+
+/* ── Project media: before/after compare ── */
+.compare {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  background: var(--surface-2);
+  user-select: none;
+}
+.compare-layer { position: absolute; inset: 0; }
+.compare-clip { z-index: 1; }
+.compare-line {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: var(--accent-2);
+  box-shadow: 0 0 8px rgba(255,95,168,0.8);
+  transform: translateX(-1px);
+  z-index: 2;
+  pointer-events: none;
+}
+.compare-tag {
+  position: absolute;
+  top: 10px;
+  z-index: 3;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(0,0,0,0.5);
+  padding: 4px 8px;
+  border-radius: 6px;
+  pointer-events: none;
+}
+.compare-tag.left { left: 10px; }
+.compare-tag.right { right: 10px; }
+.compare-range {
+  position: absolute;
+  left: 5%;
+  bottom: 10px;
+  width: 90%;
+  z-index: 3;
+  cursor: ew-resize;
+  accent-color: var(--accent-2);
+}
+
 /* DSA/Tech/Contact modal content */
 .modal-cat {
   border: 1px solid var(--border);
@@ -985,7 +1098,7 @@ a { color: inherit; text-decoration: none; }
   .bento { grid-template-columns: repeat(6, 1fr); grid-auto-rows: 80px; }
   .hero-tile    { grid-column: span 6; grid-row: span 4; padding: 24px; }
   .profile-tile { grid-column: span 6; grid-row: span 4; }
-  .exp-tile { grid-column: span 6; grid-row: span 9; padding: 24px; }
+  .exp-tile { grid-column: span 6; grid-row: span 11; padding: 24px; }
   .exp-grid { grid-template-columns: 1fr; gap: 22px; align-items: start; }
   .projects-tile { grid-column: span 6; grid-row: span 7; }
   .sq, .contact-tile, .tech-tile { grid-column: span 6; grid-row: span 3; }

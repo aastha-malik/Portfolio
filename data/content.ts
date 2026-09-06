@@ -8,14 +8,26 @@ export type TileId =
   | "contact"
   | "basic";
 
+export type ComparePair = {
+  before?: string;
+  after?: string;
+  beforeLabel?: string; // defaults to "Input"
+  afterLabel?: string; // defaults to "Output"
+};
+
 export type Project = {
   id: string;
   name: string;
   kind: string;
   bullets: string[];
   tech: string[];
-  demoUrl: string;
+  /** Omit when there's no working public demo yet (e.g. backend not deployed). */
+  demoUrl?: string;
   githubUrl?: string;
+  /** "View X post" link shown in the modal header. */
+  postUrl?: string;
+  /** Before/after drag-to-compare slider. */
+  compare?: ComparePair;
 };
 
 export type Experience = {
@@ -26,8 +38,8 @@ export type Experience = {
   summary: string;
   bullets: string[];
   tech: string[];
-  url: string;
-  urlLabel: string;
+  /** Omit when there's no public-facing URL worth linking (e.g. no live frontend). */
+  links?: { label: string; href: string }[];
 };
 
 export type TechCategoryId =
@@ -83,33 +95,38 @@ export type PortfolioContent = {
 export const content: PortfolioContent = {
   experience: [
     {
-      id: "exp-vedi",
-      company: "Vedi Collections",
-      role: "Full-Stack Developer · Client Project",
-      period: "June 2026",
+      id: "exp-freelance",
+      company: "Freelance Full-Stack Developer",
+      role: "Vedi Collections · SVJ Trust — Client Projects",
+      period: "Jun – Jul 2026",
       summary:
-        "Designed, built, and shipped a production e-commerce platform as a freelance engagement for a paying client — product catalog, orders, and admin panel.",
+        "Delivered two production client websites end to end in the same stretch — an e-commerce platform and a public trust website — owning each from schema to custom domain.",
       bullets: [
-        "Shipped a full production e-commerce store end-to-end for a paying client — product catalog, order flow, and an admin panel — with a Next.js frontend and a FastAPI backend on Supabase PostgreSQL",
-        "Deployed the frontend on Vercel and the backend on Render behind a custom domain; owned the whole stack from schema and API design to production hosting",
-        "Integrated Google Ads conversion tracking so the client could measure the return on their advertising campaigns",
+        "Delivered two production client websites end to end — owning requirements, information architecture, responsive implementation, deployment, and post-launch technical support",
+        "Vedi Collections: shipped an e-commerce platform (product catalog, order flow, admin panel) with a Next.js frontend and FastAPI backend on Supabase PostgreSQL — deployed on Vercel + Render behind a custom domain, with Google Ads conversion tracking",
+        "SVJ Trust: designed and launched a responsive public website for a trust's founder — biography, blogs, video content, donations, an upcoming book — on Next.js, Express, Prisma, Supabase, and Clerk",
       ],
-      tech: ["Next.js", "FastAPI", "Supabase", "PostgreSQL", "Vercel", "Render"],
-      url: "https://vedicollections.com",
-      urlLabel: "vedicollections.com",
+      tech: ["Next.js", "FastAPI", "PostgreSQL", "Supabase", "Express", "Prisma", "Clerk", "Vercel", "Render"],
+      links: [
+        { label: "vedicollections.com", href: "https://vedicollections.com" },
+        { label: "shivvedijagriti.org", href: "https://www.shivvedijagriti.org" },
+      ],
     },
   ],
   projects: [
     {
-      id: "project-klipo",
-      name: "Klipo",
-      kind: "Video · Captioning",
+      id: "project-topline",
+      name: "Topline",
+      kind: "AI Agent · Fintech",
       bullets: [
-        "Building a multilingual subtitle and captioning engine on top of open-source ML models, with support for multiple Indian languages",
-        "User-editable captioning workflow with customizable subtitle styling — rendered and burned directly into the video via ffmpeg",
+        "Gmail-native AI agent that helps a small business get paid on time — triages inbox history in staged passes (list → header-only peek → transparent relevance scoring → full fetch only above threshold) instead of ingesting the whole mailbox",
+        "Extracts invoice facts — number, amount, due date, payment statements — from PDF and scanned attachments (text-first, with an OCR fallback), keeping a verbatim source snippet for every fact so any number traces back to the email it came from",
+        "Factored invoice state into two orthogonal Postgres columns (payment evidence vs. reminder eligibility) collapsed to a seven-value ledger state via a pure function; schema-parity tests fail the build if the enums and DB CHECK constraints ever drift apart",
+        "Enforced \"no email can mark an invoice paid\" at three independent layers — service logic, event ingestion, and a database constraint — so only a cryptographically-verified Razorpay webhook or an explicit owner override can confirm payment",
+        "Gemini is scoped to narrow, human-approved tasks only — drafting reminder emails and parsing plain-English approval replies, never autonomous sending or payment decisions — reviewed and approved from a React 19 + TypeScript dashboard before anything goes out",
       ],
-      tech: ["Python", "FastAPI", "ffmpeg", "ML models"],
-      demoUrl: "https://www.tryklipo.com/",
+      tech: ["Python", "FastAPI", "PostgreSQL", "SQLAlchemy", "Gmail API", "Google Gemini", "Razorpay", "React", "TypeScript"],
+      githubUrl: "https://github.com/aastha-malik/topline",
     },
     {
       id: "project-tendr",
@@ -126,6 +143,7 @@ export const content: PortfolioContent = {
       tech: ["Python", "FastAPI", "PostgreSQL", "SQLAlchemy", "JWT", "OAuth2", "React 19", "TypeScript", "Render"],
       demoUrl: "https://tendr-tick-treats.onrender.com/",
       githubUrl: "https://github.com/aastha-malik/Tendr",
+      postUrl: "https://x.com/aastha__malik",
     },
     {
       id: "project-video-object-remover",
@@ -140,36 +158,20 @@ export const content: PortfolioContent = {
       tech: ["Python", "FastAPI", "WebSocket", "SSE", "SAM2", "ProPainter", "OpenCV", "Gradio", "Docker", "Hugging Face Spaces"],
       demoUrl: "https://huggingface.co/spaces/aastha-malik/video-object-remover",
       githubUrl: "https://github.com/aastha-malik/video-object-removal",
+      compare: { beforeLabel: "Input", afterLabel: "Object removed" },
     },
     {
-      id: "project-chikitsa",
-      name: "Chikitsa Cloud",
-      kind: "Healthcare · Backend",
+      id: "project-captionfx",
+      name: "CaptionFX",
+      kind: "Video · Captioning",
       bullets: [
-        "Architected and deployed a full-stack healthcare backend — 35 REST API endpoints across 7 routes: Auth (9), Users (7), Medical Records (5), Medical Analysis (1), Family Access (10), Hospital Search (1), Feedback (1)",
-        "UUID primary keys over sequential IDs — eliminates enumeration vulnerabilities and referential integrity issues caused by deletions",
-        "Dual-channel family access control via QR code scanning and email invitations — frictionless UX over password sharing, same reasoning as UPI over card payments",
-        "Medical files on Supabase Storage (AWS S3-backed); PostgreSQL stores metadata and references only — keeps the DB lean, files encrypted and cloud-managed",
-        "OAuth2 + Google Sign-In with JWT auth; OpenStreetMap API for hospital discovery; health metrics validation engine checks BMI and vitals against age/weight/height-based thresholds",
-        "Deployed on Render with PostgreSQL — full backend owned end-to-end as part of a team project",
+        "Multilingual video-captioning pipeline built around per-language ASR routing — faster-whisper for English/European speech, a dedicated Hindi/Indic specialist model — instead of one multilingual model for everything, targeting stronger accuracy on Indian-language content than most captioning tools offer",
+        "Chained Silero VAD (silence removal/chunking) → language ID → ASR → forced word-level alignment → caption shaping rules (~42 chars/line, ~15 chars/sec) before handoff to editing",
+        "Export path burns captions permanently into the video — pysubs2 renders edits to a temporary .ass file, ffmpeg burns it into the final .mp4 — the deliverable is a finished video, not a subtitle file",
+        "Deployed the ML pipeline as a GPU-backed Gradio app on Hugging Face Spaces; vetted every model's commercial-use license ahead of the paid product. Marketing site is live — the JSON API, auth, and billing layer are the next milestone",
       ],
-      tech: ["Python", "FastAPI", "PostgreSQL", "Supabase", "JWT", "OAuth2", "Render"],
-      demoUrl: "https://drive.google.com/file/d/10A-i4ca3aM3ZiWz79QTj451qiwctJ6P_/view?usp=sharing",
-      githubUrl: "https://github.com/aastha-malik/ChikitsaCloud",
-    },
-    {
-      id: "project-face-fusion",
-      name: "Face Fusion",
-      kind: "ML · Generative",
-      bullets: [
-        "Frame-by-frame face swap pipeline: InsightFace detects and embeds faces → inswapper_128 performs neural face swap → GFPGAN restores and sharpens output → ffmpeg merges audio and encodes final MP4",
-        "ONNX Runtime for GPU-accelerated inference — ~12 frames/second on T4 GPU on HF Spaces, the practical ceiling for this hardware without batching optimizations",
-        "yt-dlp integration locally for YouTube video input (non-Shorts); dropped in HF Spaces deployment due to platform network constraints — upload-only there",
-        "Deployed as an interactive Gradio UI on Hugging Face Spaces with Docker — solo project, open-source reimplementation of what HeyGen and Reface do commercially",
-      ],
-      tech: ["Python", "InsightFace", "GFPGAN", "OpenCV", "yt-dlp", "ffmpeg", "Gradio", "ONNX Runtime", "Hugging Face Spaces"],
-      demoUrl: "https://huggingface.co/spaces/aastha-malik/video-face-replace",
-      githubUrl: "https://github.com/aastha-malik/video-face-replace",
+      tech: ["Python", "faster-whisper", "Silero VAD", "ffmpeg", "Gradio", "React", "TypeScript"],
+      demoUrl: "https://captionfx.com",
     },
   ],
   dsaProfiles: [
@@ -210,7 +212,7 @@ export const content: PortfolioContent = {
     {
       id: "apis",
       label: "APIs & Protocols",
-      items: ["REST API", "WebSocket", "SSE", "OpenStreetMap API"],
+      items: ["REST API", "WebSocket", "SSE", "Gmail API", "LLM APIs (Gemini)"],
     },
     {
       id: "tools",
@@ -225,7 +227,7 @@ export const content: PortfolioContent = {
     {
       id: "ml",
       label: "ML & Computer Vision",
-      items: ["SAM2", "ProPainter", "InsightFace", "GFPGAN", "ONNX Runtime", "OpenCV", "Gradio", "Machine Learning Pipelines"],
+      items: ["SAM2", "ProPainter", "faster-whisper", "Silero VAD", "OpenCV", "Gradio", "Machine Learning Pipelines"],
     },
     {
       id: "client",
@@ -275,7 +277,7 @@ export const content: PortfolioContent = {
     headline: "Backend Developer",
     subheadline: "Always shipping something new.",
     intro:
-      "I build and deploy production-grade backend systems. I've shipped a production e-commerce platform for a paying client (Vedi Collections — Next.js + FastAPI on Supabase, behind a custom domain), and my own projects span productivity (Tendr — a gamified full-stack task manager with server-enforced XP and virtual-pet mechanics, launched to #66 on Product Hunt), healthcare (Chikitsa Cloud — 35 REST endpoints, OAuth2, QR-based family access control), and AI/ML (Video Object Remover using Meta's SAM2 + ProPainter; Face Fusion at ~12fps face-swap on T4 GPU via ONNX Runtime — both deployed on Hugging Face Spaces with Docker). I work primarily in Python with FastAPI, PostgreSQL, and JWT/OAuth2 — and I'm comfortable taking a project from API design all the way to cloud deployment.",
+      "I build and deploy production-grade backend systems. I've shipped two production client projects (Vedi Collections — e-commerce, Next.js + FastAPI on Supabase, behind a custom domain; SVJ Trust — a public website for a trust's founder), and my own projects span AI agents (Topline — a Gmail-native agent that reads invoice-relevant email into a source-backed ledger and only ever drafts follow-ups for a human to approve), productivity (Tendr — a gamified full-stack task manager with server-enforced XP and virtual-pet mechanics, launched to #66 on Product Hunt), and ML (Video Object Remover using Meta's SAM2 + ProPainter; CaptionFX, a multilingual captioning pipeline with dedicated Hindi/Indic ASR routing — both deployed on Hugging Face Spaces). I work primarily in Python with FastAPI, PostgreSQL, and JWT/OAuth2 — and I'm comfortable taking a project from API design all the way to cloud deployment.",
   },
   profile: {
     name: "Aastha Malik",
