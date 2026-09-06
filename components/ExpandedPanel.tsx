@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { content, type Project } from "@/data/content";
+import { content, type Project, type ComparePair } from "@/data/content";
 
 type ModalState =
   | null
@@ -27,41 +29,98 @@ function getTitle(modal: ModalState): string {
   }
 }
 
+function MediaPlaceholder({ hint, label }: { hint: string; label?: string }) {
+  return (
+    <div className="pmedia-ph">
+      <span className="pmedia-ph-hint">{hint}</span>
+      {label && <span className="pmedia-ph-label">{label}</span>}
+    </div>
+  );
+}
+
+function CompareSlider({ pair }: { pair: ComparePair }) {
+  const [pct, setPct] = useState(50);
+  const beforeLabel = pair.beforeLabel ?? "Input";
+  const afterLabel = pair.afterLabel ?? "Output";
+  return (
+    <div className="compare">
+      <div className="compare-layer">
+        {pair.after ? (
+          <Image src={pair.after} alt={afterLabel} fill sizes="(max-width: 700px) 90vw, 860px" />
+        ) : (
+          <MediaPlaceholder hint={`${afterLabel} (after)`} />
+        )}
+      </div>
+      <div className="compare-layer compare-clip" style={{ clipPath: `inset(0 ${100 - pct}% 0 0)` }}>
+        {pair.before ? (
+          <Image src={pair.before} alt={beforeLabel} fill sizes="(max-width: 700px) 90vw, 860px" />
+        ) : (
+          <MediaPlaceholder hint={`${beforeLabel} (before)`} />
+        )}
+      </div>
+      <div className="compare-line" style={{ left: `${pct}%` }} />
+      <span className="compare-tag left">{beforeLabel}</span>
+      <span className="compare-tag right">{afterLabel}</span>
+      <input
+        className="compare-range"
+        type="range"
+        min={0}
+        max={100}
+        value={pct}
+        onChange={(e) => setPct(Number(e.target.value))}
+        aria-label="Drag to compare before and after"
+      />
+    </div>
+  );
+}
+
+function ProjectModal({ p }: { p: Project }) {
+  return (
+    <div className="pcard">
+      <div className="phead">
+        <div>
+          <div className="pname">{p.name}</div>
+          <div className="pkind">{p.kind}</div>
+        </div>
+        {p.postUrl && (
+          <a href={p.postUrl} target="_blank" rel="noopener noreferrer">
+            <button className="pbtn">View X post ↗</button>
+          </a>
+        )}
+      </div>
+
+      {p.compare && <CompareSlider pair={p.compare} />}
+
+      <div className="ptech">
+        {p.tech.map((t) => (
+          <span className="tech-chip" key={t}>{t}</span>
+        ))}
+      </div>
+      <ul>
+        {p.bullets.map((b, i) => (
+          <li key={i}>{b}</li>
+        ))}
+      </ul>
+      <div className="pbtns">
+        {p.demoUrl && (
+          <a href={p.demoUrl} target="_blank" rel="noopener noreferrer">
+            <button className="pbtn primary">Live Demo ↗</button>
+          </a>
+        )}
+        {p.githubUrl && (
+          <a href={p.githubUrl} target="_blank" rel="noopener noreferrer">
+            <button className="pbtn">GitHub ↗</button>
+          </a>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function ModalContent({ modal }: { modal: NonNullable<ModalState> }) {
   switch (modal.type) {
     case "project":
-      return (
-        <div className="pcard">
-          <div className="phead">
-            <div>
-              <div className="pname">{modal.data.name}</div>
-              <div className="pkind">{modal.data.kind}</div>
-            </div>
-          </div>
-          <div className="ptech">
-            {modal.data.tech.map((t) => (
-              <span className="tech-chip" key={t}>{t}</span>
-            ))}
-          </div>
-          <ul>
-            {modal.data.bullets.map((b, i) => (
-              <li key={i}>{b}</li>
-            ))}
-          </ul>
-          <div className="pbtns">
-            <a href={modal.data.demoUrl} target="_blank" rel="noopener noreferrer">
-              <button className="pbtn primary">
-                {modal.data.name === "Chikitsa Cloud" ? "Demo Video ↗" : "Live Demo ↗"}
-              </button>
-            </a>
-            {modal.data.githubUrl && (
-              <a href={modal.data.githubUrl} target="_blank" rel="noopener noreferrer">
-                <button className="pbtn">GitHub ↗</button>
-              </a>
-            )}
-          </div>
-        </div>
-      );
+      return <ProjectModal p={modal.data} />;
 
     case "dsa":
       return (

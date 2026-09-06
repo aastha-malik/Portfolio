@@ -232,7 +232,7 @@ export function GridLayout() {
                   <span className="num">01</span>/ Experience
                 </div>
                 <div className="exp-lead">
-                  Freelance — <em>shipped production software for a paying client</em>, schema to custom domain.
+                  Freelance <em>Full-Stack Developer</em> — Jun&ndash;Jul 2026.
                 </div>
                 <div className="exp-note">
                   <span className="dot" />
@@ -260,9 +260,15 @@ export function GridLayout() {
                           <span key={t} className="tech-chip">{t}</span>
                         ))}
                       </div>
-                      <a href={e.url} target="_blank" rel="noopener noreferrer" className="exp-visit">
-                        {e.urlLabel} ↗
-                      </a>
+                      {e.links && e.links.length > 0 && (
+                        <div className="exp-links">
+                          {e.links.map((l) => (
+                            <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className="exp-visit">
+                              {l.label} ↗
+                            </a>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -319,7 +325,7 @@ export function GridLayout() {
             <div>
               <div className="tile-label"><span className="num">04</span>/ One-pager</div>
               <div className="tile-title">Résumé</div>
-              <div className="tile-sub">PDF · One page · Updated Jul &apos;26</div>
+              <div className="tile-sub">PDF · One page · Updated Sep &apos;26</div>
             </div>
             <div className="preview" />
             <div className="arrow"><Arrow /></div>
@@ -378,11 +384,11 @@ export function GridLayout() {
               </div>
               <div className="about-stats">
                 <div className="stat">
-                  <div className="num">65+</div>
+                  <div className="num">50+</div>
                   <div className="lab">REST endpoints shipped</div>
                 </div>
                 <div className="stat">
-                  <div className="num">6</div>
+                  <div className="num">4</div>
                   <div className="lab">Live deployments</div>
                 </div>
                 <div className="stat">
