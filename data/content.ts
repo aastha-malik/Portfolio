@@ -115,6 +115,20 @@ export const content: PortfolioContent = {
   ],
   projects: [
     {
+      id: "project-captionfx",
+      name: "CaptionFX",
+      kind: "Video · Captioning · Live Product",
+      bullets: [
+        "Built and launched a web app where creators upload videos, generate multilingual captions, style them, and export finished captioned videos",
+        "Backend captioning pipeline: speech APIs with word-level transcription, caption formatting rules, and ffmpeg-based export that burns captions into the final video",
+        "Word-level highlighting, preset styles and animations, plus Razorpay-based credits for paid usage",
+        "SEO improvements and a database round-trip latency cut from ~90 ms to ~4 ms",
+      ],
+      tech: ["Python", "Speech APIs", "ffmpeg", "React", "Razorpay"],
+      demoUrl: "https://captionfx.com",
+      postUrl: "https://x.com/captionfx",
+    },
+    {
       id: "project-topline",
       name: "Topline",
       kind: "AI Agent · Fintech",
@@ -160,19 +174,6 @@ export const content: PortfolioContent = {
       githubUrl: "https://github.com/aastha-malik/video-object-removal",
       compare: { beforeLabel: "Input", afterLabel: "Object removed" },
     },
-    {
-      id: "project-captionfx",
-      name: "CaptionFX",
-      kind: "Video · Captioning",
-      bullets: [
-        "Multilingual video-captioning pipeline built around per-language ASR routing — faster-whisper for English/European speech, a dedicated Hindi/Indic specialist model — instead of one multilingual model for everything, targeting stronger accuracy on Indian-language content than most captioning tools offer",
-        "Chained Silero VAD (silence removal/chunking) → language ID → ASR → forced word-level alignment → caption shaping rules (~42 chars/line, ~15 chars/sec) before handoff to editing",
-        "Export path burns captions permanently into the video — pysubs2 renders edits to a temporary .ass file, ffmpeg burns it into the final .mp4 — the deliverable is a finished video, not a subtitle file",
-        "Deployed the ML pipeline as a GPU-backed Gradio app on Hugging Face Spaces; vetted every model's commercial-use license ahead of the paid product. Marketing site is live — the JSON API, auth, and billing layer are the next milestone",
-      ],
-      tech: ["Python", "faster-whisper", "Silero VAD", "ffmpeg", "Gradio", "React", "TypeScript"],
-      demoUrl: "https://captionfx.com",
-    },
   ],
   dsaProfiles: [
     {
@@ -187,7 +188,7 @@ export const content: PortfolioContent = {
     {
       id: "languages",
       label: "Languages",
-      items: ["Python", "JavaScript", "TypeScript"],
+      items: ["Python", "JavaScript", "TypeScript", "SQL"],
     },
     {
       id: "backend",
@@ -207,12 +208,12 @@ export const content: PortfolioContent = {
     {
       id: "cloud",
       label: "Cloud & Deployment",
-      items: ["Render", "Vercel", "Supabase Storage", "Hugging Face Spaces", "Docker"],
+      items: ["Render", "Vercel", "Supabase Storage", "Hugging Face Spaces", "Docker", "Razorpay"],
     },
     {
       id: "apis",
       label: "APIs & Protocols",
-      items: ["REST API", "WebSocket", "SSE", "Gmail API", "LLM APIs (Gemini)"],
+      items: ["REST API", "WebSocket", "SSE", "Webhooks", "Gmail API", "Gemini API", "Speech-to-Text APIs"],
     },
     {
       id: "tools",
@@ -274,14 +275,14 @@ export const content: PortfolioContent = {
     },
   ],
   basicInfo: {
-    headline: "Backend Developer",
+    headline: "Software Engineer",
     subheadline: "Always shipping something new.",
     intro:
-      "I build and deploy production-grade backend systems. I've shipped two production client projects (Vedi Collections — e-commerce, Next.js + FastAPI on Supabase, behind a custom domain; SVJ Trust — a public website for a trust's founder), and my own projects span AI agents (Topline — a Gmail-native agent that reads invoice-relevant email into a source-backed ledger and only ever drafts follow-ups for a human to approve), productivity (Tendr — a gamified full-stack task manager with server-enforced XP and virtual-pet mechanics, launched to #66 on Product Hunt), and ML (Video Object Remover using Meta's SAM2 + ProPainter; CaptionFX, a multilingual captioning pipeline with dedicated Hindi/Indic ASR routing — both deployed on Hugging Face Spaces). I work primarily in Python with FastAPI, PostgreSQL, and JWT/OAuth2 — and I'm comfortable taking a project from API design all the way to cloud deployment.",
+      "Software engineer and product builder focused on building and shipping complete products. I work across backend systems, product design, integrations, deployment, and iteration — through my own products like CaptionFX (a live video-captioning platform with paid credits), Topline (a Gmail-native revenue-recovery agent), and Tendr (a gamified productivity app that ranked #66 on Product Hunt), and through production client work for Vedi Collections and SVJ Trust. I work primarily in Python with FastAPI and PostgreSQL, and take projects from API design all the way to deployment.",
   },
   profile: {
     name: "Aastha Malik",
-    role: "Backend Developer",
+    role: "Software Engineer · Backend & Product",
     imageSrc: "/profile.jpg",
     imageAlt: "Aastha Malik",
   },
